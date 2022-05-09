@@ -10,8 +10,8 @@ import logo from "../../assets/images/safaricom-Logo.png";
 
 export const Header = (props) => {
   return (
-    <Navbar className="navbar">
-      <Navbar.Brand href="#home">
+    <Navbar className="navbar fixed-top">
+      <Navbar.Brand href="/">
         <img src={logo} className="nav-logo" alt="" />
         Enterprise Leads Management Tool
       </Navbar.Brand>

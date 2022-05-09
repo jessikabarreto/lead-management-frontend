@@ -1,15 +1,20 @@
 import React from "react";
 import { Header } from "../Header";
+import { Footer } from "../Footer";
 
 /**
  * @author
  * @function Layout
  **/
 
-export const Layout = (props) => {
+const Layout = (props) => {
   return (
     <>
-      <Header>{props.children}</Header>
+      <Header />
+      {props.children}
+      <Footer></Footer>
     </>
   );
 };
+
+export default Layout;

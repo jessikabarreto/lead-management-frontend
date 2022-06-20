@@ -3,6 +3,8 @@ import Layout from "../../components/Layout";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import image from "../../assets/images/landing_page_image.png";
 import { Input } from "../../components/UI/Input";
+import { login } from "../../actions";
+import { useDispatch } from "react-redux";
 
 /**
 * @author
@@ -11,6 +13,19 @@ import { Input } from "../../components/UI/Input";
 **/
 
 export const Signin = (props) => {
+  const dispatch = useDispatch();
+
+  const userLogin = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email: "buglep@outlook.com",
+      password: "test",
+    };
+
+    dispatch(login(user));
+  };
+
   return (
     <Layout style={{ height: "100%" }}>
       <Row style={{ borderTop: "1px solid #efefef" }}>
@@ -49,7 +64,10 @@ export const Signin = (props) => {
             </p>
           </div>
 
-          <Form style={{ marginLeft: "10px", maxWidth: "300px" }}>
+          <Form
+            onSubmit={userLogin}
+            style={{ marginLeft: "10px", maxWidth: "300px" }}
+          >
             <Input
               id=""
               placeholder="Enter email"

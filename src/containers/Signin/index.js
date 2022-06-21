@@ -3,8 +3,10 @@ import Layout from "../../components/Layout";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import image from "../../assets/images/landing_page_image.png";
 import { Input } from "../../components/UI/Input";
-import { login } from "../../actions";
-import { useDispatch } from "react-redux";
+import { login, isUserLoggedIn } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 /**
 * @author
@@ -13,18 +15,33 @@ import { useDispatch } from "react-redux";
 **/
 
 export const Signin = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!auth.authenticate) {
+      dispatch(isUserLoggedIn());
+    }
+  }, []);
 
   const userLogin = (e) => {
     e.preventDefault();
 
     const user = {
-      email: "buglep@outlook.com",
-      password: "test",
+      email,
+      password,
     };
 
     dispatch(login(user));
+    console.log(auth);
   };
+
+  if (auth.authenticate) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Layout style={{ height: "100%" }}>
@@ -72,21 +89,22 @@ export const Signin = (props) => {
               id=""
               placeholder="Enter email"
               type="text"
-              value=""
-              onChange={() => {}}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               class="mb-3"
               id="formBasicPassword"
               placeholder="Password"
               type="password"
-              value=""
-              onChange={() => {}}
-            />{" "}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <Button variant="success" type="submit">
               Submit
             </Button>
           </Form>
+          <p value={error} onChange={(e) => setError(e.target.value)}></p>
         </Col>
         <Col md={8}>
           <img

@@ -3,6 +3,8 @@ import { Row, Col } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import { Link } from "react-router-dom";
 import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
+import "../../assets/css/Home.css";
+import { closeNav, openNav } from "./script";
 
 /**
  * @author
@@ -12,9 +14,24 @@ import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
 export const Home = (props) => {
   return (
     <Layout>
+      <div id="mySidenav" className="sidenav">
+        <a to="javascript:void(0)" className="closebtn" onClick={closeNav()}>
+          &times;
+        </a>
+        <a to="#">About</a>
+        <a to="#">Services</a>
+        <a to="#">Clients</a>
+        <a to="#">Contact</a>
+      </div>
       <div className="text-center" style={{ borderTop: "1px solid #efefef" }}>
         <div>
           <Row xs={1} md={2} className="">
+            <span
+              style={{ fontSize: "30px", cursor: "pointer" }}
+              onClick={openNav()}
+            >
+              &#9776; open
+            </span>
             <Col
               className="position-fixed"
               md={3}
@@ -134,12 +151,14 @@ export const Home = (props) => {
               </ul>
             </Col>
             <Col
+              className="position-relative"
               md={9}
               style={{
                 border: "1px solid grey",
                 margin: "auto",
                 borderRadius: "10px",
                 background: "#efefef",
+                float: "right",
               }}
             >
               test

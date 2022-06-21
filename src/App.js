@@ -5,15 +5,23 @@ import "./App.css";
 import { Home } from "./containers/Home";
 import { Signin } from "./containers/Signin";
 import { Register } from "./containers/Register";
+import PrivateRoute from "./components/HOC/PrivateRoute";
 
 function App() {
   return (
     <React.Fragment>
       <Router>
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signin/" element={<Signin />} />
+          <Route path="/register/" element={<Register />} />
         </Routes>
       </Router>
     </React.Fragment>

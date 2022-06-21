@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 import "../../assets/css/Header.css";
 import logo from "../../assets/images/safaricom-Logo.png";
+import { useSelector } from "react-redux";
 
 /**
  * @author
@@ -9,6 +10,9 @@ import logo from "../../assets/images/safaricom-Logo.png";
  **/
 
 export const Header = (props) => {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
+
   return (
     <Navbar className="navbar fixed-top">
       <Navbar.Brand href="/">
@@ -18,7 +22,7 @@ export const Header = (props) => {
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
-          Welcome <a href="#login">Kemuel</a>
+          Welcome <a href="#login">{auth.user.firstname}</a>
         </Navbar.Text>
       </Navbar.Collapse>
     </Navbar>

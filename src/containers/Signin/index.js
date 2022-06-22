@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../../components/Layout";
+import { Layout } from "../../components/Layout";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import image from "../../assets/images/landing_page_image.png";
 import { Input } from "../../components/UI/Input";

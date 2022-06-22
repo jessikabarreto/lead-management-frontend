@@ -2,7 +2,8 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 import "../../assets/css/Header.css";
 import logo from "../../assets/images/safaricom-Logo.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../actions";
 
 /**
  * @author
@@ -11,7 +12,11 @@ import { useSelector } from "react-redux";
 
 export const Header = (props) => {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
+  const dispatch = useDispatch();
+
+  const signout = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -22,11 +27,11 @@ export const Header = (props) => {
         </Navbar.Brand>
         <Navbar.Toggle>test</Navbar.Toggle>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Welcome <a href="#login">{auth.user.firstname}</a>
+          <Navbar.Text className="user">
+            Welcome {auth.user.firstname}
           </Navbar.Text>
           <Navbar.Text>
-            Log out <a href="#login"></a>
+            <i className="bi bi-box-arrow-right" onClick={signout}></i>
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>

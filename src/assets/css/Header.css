@@ -29,6 +29,15 @@
   
 }
 
-.bi-three-dots:hover{
+.bi-box-arrow-right, .bi-three-dots:hover{
   cursor: pointer;
+}
+
+.bi-box-arrow-right{
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.user{
+  color: rgb(39, 38, 38);
 }

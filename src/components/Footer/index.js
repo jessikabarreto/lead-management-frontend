@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import logo from "../../assets/images/safaricom-Logo.png";
+// import logo from "../../assets/images/safaricom-Logo.png";
 import "../../assets/css/Footer.css";
 
 /**

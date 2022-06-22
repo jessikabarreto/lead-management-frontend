@@ -23,23 +23,23 @@ export const SideNav = (props) => {
           <i className="bi bi-x-square"></i>
         </a>
         <Rule color="gray" />
-        <a href="#section">
+        <a href="/">
           <i className="bi bi-house-fill"></i>
           Home
         </a>
-        <a href="#section">
+        <a href="/leadcapture">
           <i className="bi bi-menu-button-wide-fill"></i>
           Lead Capture
         </a>
-        <a href="#section">
+        <a href="/leadtracker">
           <i className="bi bi-list-stars"></i>
           Lead Tracker
         </a>
-        <a href="#section">
+        <a href="/administration">
           <i className="bi bi-folder-check"></i>
           Administration
         </a>
-        <a href="#section">
+        <a href="/dashboard">
           <i className="bi bi-clipboard-data"></i>
           Dashboard
         </a>
@@ -49,19 +49,19 @@ export const SideNav = (props) => {
           <i className="bi bi-x-square"></i>
         </a>
         <Rule color="gray" />
-        <a href="#section">
+        <a href="/">
           <i className="bi bi-house-fill"></i>
         </a>
-        <a href="#section">
+        <a href="/leadcapture">
           <i className="bi bi-menu-button-wide-fill"></i>
         </a>
-        <a href="#section">
+        <a href="/leadtracker">
           <i className="bi bi-list-stars"></i>
         </a>
-        <a href="#section">
+        <a href="/administration">
           <i className="bi bi-folder-check"></i>
         </a>
-        <a href="#section">
+        <a href="/dashboard">
           <i className="bi bi-clipboard-data"></i>
         </a>
       </div>

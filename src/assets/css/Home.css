@@ -1,3 +1,41 @@
 .leads{
   margin: 10px;
 }
+
+.scroller {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.table-container{
+  margin-right: 10px;
+  height: 350px;
+}
+
+.table{
+  font-size: 15px;
+}
+
+.table-head{
+  background-color: rgb(7, 173, 7);
+  color: white;
+  margin: auto;
+  height: auto;
+}
+
+.summary-figure{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 60px;
+  text-align: center;
+  font-weight: 500;
+  color: grey;
+}
+
+.summary-title{
+  margin-top: 0px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: rgb(53, 50, 50);
+}

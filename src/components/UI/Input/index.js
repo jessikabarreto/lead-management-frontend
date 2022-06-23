@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Form, InputGroup, FormControl } from "react-bootstrap";
 
 /**
  * @author
@@ -9,14 +9,48 @@ import { Form } from "react-bootstrap";
 export const Input = (props) => {
   return (
     <Form.Group className={props.class} controlId={props.id}>
-      <Form.Label>{props.label}</Form.Label>
+      <Form.Label style={{ fontWeight: "500", color: "#474646" }}>
+        {props.label}
+      </Form.Label>
       <Form.Control
+        style={{ fontSize: "12px" }}
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
+        as={props.as}
+        rows={props.rows}
+        required={props.required}
       />
       <Form.Text className="text-muted">{props.errorMessage}</Form.Text>
     </Form.Group>
+  );
+};
+
+export const Select = (props) => {
+  return (
+    <Form.Group className={props.class} controlId={props.id}>
+      <Form.Label style={{ fontWeight: "500", color: "#474646" }}>
+        {props.label}
+      </Form.Label>
+      <Form.Text className="text-muted">{props.errorMessage}</Form.Text>
+    </Form.Group>
+  );
+};
+
+export const HomeInput = (props) => {
+  return (
+    <InputGroup className="mb-2">
+      <InputGroup.Text>{props.label}</InputGroup.Text>
+      <FormControl
+        aria-label="First name"
+        value={props.value}
+        required={props.required}
+        type={props.type}
+        onChange={props.onChange}
+        as={props.as}
+        rows={props.rows}
+      />
+    </InputGroup>
   );
 };

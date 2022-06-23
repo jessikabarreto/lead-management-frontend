@@ -24,6 +24,8 @@ export const authReducer = (state = initState, action) => {
         authenticating: true,
       };
       break;
+    default:
+      break;
     case authConstants.LOGIN_SUCCESS:
       state = {
         ...state,

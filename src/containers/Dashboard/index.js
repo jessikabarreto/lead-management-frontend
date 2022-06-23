@@ -8,10 +8,13 @@ import { Layout } from "../../components/Layout";
 
 export const Dashboard = (props) => {
   return (
-    <div>
-      <Layout>
+    <Layout>
+      <div
+        className="text-center home"
+        style={{ borderTop: "1px solid #efefef" }}
+      >
         <h1>Dashboard</h1>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };

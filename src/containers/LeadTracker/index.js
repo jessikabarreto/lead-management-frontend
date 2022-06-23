@@ -7,10 +7,10 @@ import { Layout } from "../../components/Layout";
 
 export const LeadTracker = (props) => {
   return (
-    <div>
-      <Layout>
-        <h1>Lead Tracker</h1>
-      </Layout>
-    </div>
+    <Layout>
+      <div className="tracker" style={{ borderTop: "1px solid #efefef" }}>
+        <h1>Leads Tracker</h1>
+      </div>
+    </Layout>
   );
 };

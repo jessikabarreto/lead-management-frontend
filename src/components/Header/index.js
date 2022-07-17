@@ -12,6 +12,7 @@ import { logout } from "../../actions";
 
 export const Header = (props) => {
   const auth = useSelector((state) => state.auth);
+  const userName = auth.user.firstname;
   const dispatch = useDispatch();
 
   const signout = () => {
@@ -27,9 +28,7 @@ export const Header = (props) => {
         </Navbar.Brand>
         <Navbar.Toggle>test</Navbar.Toggle>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="user">
-            Welcome {auth.user.firstname}
-          </Navbar.Text>
+          <Navbar.Text className="user">Welcome {userName}</Navbar.Text>
           <Navbar.Text>
             <i className="bi bi-box-arrow-right" onClick={signout}></i>
           </Navbar.Text>

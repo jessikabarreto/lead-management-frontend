@@ -105,7 +105,7 @@ export const Signin = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="success" type="submit">
-            Submit
+            Log In
           </Button>
         </Form>
         <p value={error} onChange={(e) => setError(e.target.value)}></p>

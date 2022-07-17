@@ -1,7 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { addLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
+import { useSelector, useDispatch } from "react-redux";
+import "../../assets/css/LeadCapture.css";
 
 /**
  * @author
@@ -9,6 +13,70 @@ import { Input, Select } from "../../components/UI/Input";
  **/
 
 export const LeadCapture = (props) => {
+  const auth = useSelector((state) => state.auth);
+  const _id = auth.user._id;
+  const dispatch = useDispatch();
+  const [business_name, setBusinessName] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [contact_person, setContactPerson] = useState("");
+  const [contact_email, setEmail] = useState("");
+  const [contact_number, setPhone] = useState("");
+  const [service_type, setServiceType] = useState("");
+  const [service_subtype, setSubType] = useState("");
+  const [region, setRegion] = useState("");
+  const [notes, setNotes] = useState("");
+  // const [createcBy, setCreatedBy] = useState('')
+  // const [creatorEmail, setCreatorEmail] = useState('')
+  // const [creatorEk, setCreatorEk] = useState('')
+  // const [creatorDep, setCreatorDep] = useState('')
+  // const [creatorPosition, setCreatorposition] = useState('')
+  const createLead = (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("_id", _id);
+    form.append("business_name", business_name);
+    form.append("industry", industry);
+    form.append("contact_person", contact_person);
+    form.append("contact_email", contact_email);
+    form.append("contact_number", contact_number);
+    form.append("service_type", service_type);
+    form.append("service_subtype", service_subtype);
+    form.append("region", region);
+    form.append("notes", notes);
+
+    const lead = {
+      _id,
+      business_name,
+      industry,
+      contact_person,
+      contact_email,
+      contact_number,
+      service_type,
+      service_subtype,
+      region,
+      notes,
+    };
+    // console.log(lead);
+    if (
+      !lead.business_name ||
+      !lead.industry ||
+      !lead.contact_person ||
+      !lead.contact_email ||
+      !lead.contact_number ||
+      !lead.service_type ||
+      !lead.service_subtype ||
+      !lead.region ||
+      !lead.notes
+    ) {
+      document.getElementById("msg").innerHTML = "Please fill all fields";
+      document.getElementById("msg").classList.add("error");
+    } else {
+      dispatch(addLead(lead));
+      document.getElementById("msg").innerHTML = "Lead successfully created";
+      document.getElementById("msg").classList.add("success");
+    }
+  };
+
   return (
     <Layout>
       <div className="" style={{ borderTop: "1px solid #efefef" }}>
@@ -30,9 +98,9 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Business Name"
                   type="text"
-                  value=""
+                  value={business_name}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setBusinessName(e.target.value)}
                 />
                 <Input
                   label="Contact Person"
@@ -40,25 +108,34 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Contact Person"
                   type="text"
-                  value=""
+                  value={contact_person}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setContactPerson(e.target.value)}
                 />
-                <Input
-                  label="Region"
-                  class="mb-3"
+                <Form.Select
+                  aria-label="Default select example"
+                  className="mb-3"
                   id=""
-                  placeholder="Enter Region"
-                  type="text"
-                  value=""
+                  style={{ fontSize: "12px" }}
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value)}
                   required
-                  onChange={(e) => {}}
-                />
+                >
+                  <option>Select Region</option>
+                  <option value="NAIROBI EAST">NAIROBI EAST</option>
+                  <option value="NAIROBI WEST">NAIROBI WEST</option>
+                  <option value="NAIROBI CENRAL">NAIROBI CENRAL</option>
+                  <option value="MOUNTAIN">MOUNTAIN</option>
+                  <option value="COAST">COAST</option>
+                  <option value="RIFT">RIFT</option>
+                  <option value="GREATER WESTERN">GREATER WESTERN</option>
+                </Form.Select>
                 <Button
                   className="btn-sm"
                   variant="success"
                   type="submit"
                   style={{ width: "160px" }}
+                  onClick={createLead}
                 >
                   Submit
                 </Button>
@@ -70,9 +147,9 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Industry"
                   type="text"
-                  value=""
+                  value={industry}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setIndustry(e.target.value)}
                 />
                 <Input
                   label="Contact Email"
@@ -80,9 +157,9 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Contact Email address"
                   type="email"
-                  value=""
+                  value={contact_email}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <Row>
                   <Col>
@@ -90,15 +167,16 @@ export const LeadCapture = (props) => {
                     <Form.Select
                       aria-label="Default select example"
                       style={{ fontSize: "12px" }}
-                      onChange={(e) => {}}
+                      value={service_type}
+                      onChange={(e) => setServiceType(e.target.value)}
                       required
                     >
                       <option>Select Service</option>
-                      <option value="1">Fixed Data</option>
-                      <option value="2">GSM</option>
-                      <option value="3">ICT</option>
-                      <option value="4">MPESA</option>
-                      <option value="5">IoT</option>
+                      <option value="Fixed Data">Fixed Data</option>
+                      <option value="GSM">GSM</option>
+                      <option value="ICT">ICT</option>
+                      <option value="MPESA">MPESA</option>
+                      <option value="IoT">IoT</option>
                     </Form.Select>
                   </Col>
                   <Col>
@@ -106,37 +184,68 @@ export const LeadCapture = (props) => {
                     <Form.Select
                       aria-label="Default select example"
                       style={{ fontSize: "12px" }}
-                      onChange={(e) => {}}
+                      value={service_subtype}
+                      onChange={(e) => setSubType(e.target.value)}
                       required
                     >
                       <option>Select Sub-Type</option>
-                      <option value="1">Fixed - Fibre</option>
-                      <option value="2">Ficed - LTE</option>
-                      <option value="3">GSM - Mobile Data</option>
-                      <option value="4">GSM - Mobile Voice</option>
-                      <option value="5">GSM - Bulk SMS</option>
-                      <option value="6">GSM - SMS & VAS</option>
-                      <option value="7">GSM - Roaming</option>
-                      <option value="8">GSM - Shiriki</option>
-                      <option value="9">GSM - Corporate Value Pack</option>
-                      <option value="10">GSM - Corporate Advantage</option>
-                      <option value="11">GSM - Education Data-Pass</option>
-                      <option value="12">ICT - Cloud</option>
-                      <option value="13">ICT - Collocation</option>
-                      <option value="14">ICT - Digital Service</option>
-                      <option value="15">ICT - Managed Security</option>
-                      <option value="16">ICT - Consulting</option>
-                      <option value="17">ICT - G-Suite</option>
-                      <option value="18">ICT - Office 365</option>
-                      <option value="19">MPESA - Buy Goods Till</option>
-                      <option value="20">MPESA - Paybil-C2B</option>
-                      <option value="21">MPESA - Paybill-B2C</option>
-                      <option value="22">MPESA - Paybil-B2B</option>
-                      <option value="23">IoT - M-Gas</option>
-                      <option value="24">IoT - Telematics</option>
-                      <option value="25">IoT - Smart-Water</option>
-                      <option value="26">IoT - Smart-Meter</option>
-                      <option value="27">IoT - SIM Management</option>
+                      <option value="Fixed - Fibre">Fixed - Fibre</option>
+                      <option value="Ficed - LTE">Ficed - LTE</option>
+                      <option value="GSM - Mobile Data">
+                        GSM - Mobile Data
+                      </option>
+                      <option value="GSM - Mobile Voice">
+                        GSM - Mobile Voice
+                      </option>
+                      <option value="GSM - Bulk SMS">GSM - Bulk SMS</option>
+                      <option value="GSM - SMS & VAS">GSM - SMS & VAS</option>
+                      <option value="GSM - Roaming">GSM - Roaming</option>
+                      <option value="GSM - Shiriki">GSM - Shiriki</option>
+                      <option value="GSM - Corporate Value Pack">
+                        GSM - Corporate Value Pack
+                      </option>
+                      <option value="GSM - Corporate Advantage">
+                        GSM - Corporate Advantage
+                      </option>
+                      <option value="GSM - Education Data-Pass">
+                        GSM - Education Data-Pass
+                      </option>
+                      <option value="ICT - Cloud">ICT - Cloud</option>
+                      <option value="ICT - Collocation">
+                        ICT - Collocation
+                      </option>
+                      <option value="ICT - Digital Service">
+                        ICT - Digital Service
+                      </option>
+                      <option value="ICT - Managed Security">
+                        ICT - Managed Security
+                      </option>
+                      <option value="ICT - Consulting">ICT - Consulting</option>
+                      <option value="ICT - G-Suite">ICT - G-Suite</option>
+                      <option value="ICT - Office 365">ICT - Office 365</option>
+                      <option value="MPESA - Buy Goods Till">
+                        MPESA - Buy Goods Till
+                      </option>
+                      <option value="MPESA - Paybil-C2B">
+                        MPESA - Paybil-C2B
+                      </option>
+                      <option value="MPESA - Paybill-B2C">
+                        MPESA - Paybill-B2C
+                      </option>
+                      <option value="MPESA - Paybil-B2B">
+                        MPESA - Paybil-B2B
+                      </option>
+                      <option value="IoT - M-Gas">IoT - M-Gas</option>
+                      <option value="IoT - Telematics">IoT - Telematics</option>
+                      <option value="IoT - Smart-Water">
+                        IoT - Smart-Water
+                      </option>
+                      <option value="IoT - Smart-Meter">
+                        IoT - Smart-Meter
+                      </option>
+                      <option value="IoT - SIM Management">
+                        IoT - SIM Management
+                      </option>
                     </Form.Select>
                   </Col>
                 </Row>
@@ -148,9 +257,9 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Contact number"
                   type="text"
-                  value=""
+                  value={contact_number}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
                 <Input
                   label="Additionl Notes"
@@ -160,13 +269,13 @@ export const LeadCapture = (props) => {
                   id=""
                   placeholder="Enter Notes"
                   type="text"
-                  value=""
+                  value={notes}
                   required
-                  onChange={(e) => {}}
+                  onChange={(e) => setNotes(e.target.value)}
                 />
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col>
                 <Input
                   rows="5"
@@ -227,8 +336,9 @@ export const LeadCapture = (props) => {
                   onChange={(e) => {}}
                 />
               </Col>
-            </Row>
+            </Row> */}
           </Form>
+          <p className="mt-3 text-center" id="msg"></p>
         </div>
       </div>
     </Layout>

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Table, Form } from "react-bootstrap";
 import { Layout } from "../../components/Layout";
 import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/css/Home.css";
-import { getAllLeads } from "../../actions";
+import { getAllLeads, getSingleLead } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeInput } from "../../components/UI/Input";
 
@@ -14,11 +14,21 @@ import { HomeInput } from "../../components/UI/Input";
 
 export const Home = (props) => {
   const leads = useSelector((state) => state.leads);
+  const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const dispatch = useDispatch();
 
+  // console.log(singleLeadItem);
   useEffect(() => {
     dispatch(getAllLeads());
   }, []);
+
+  const test = (leads) => {
+    const leadSingleItem = {};
+    for (let lead of leads) {
+      leadSingleItem.leadId = lead.leadId;
+    }
+    return leadSingleItem;
+  };
 
   const renderLeads = (leads) => {
     let leadItem = [];
@@ -26,7 +36,16 @@ export const Home = (props) => {
       leadItem.push(
         <tr key={lead._id}>
           <td>
-            <a href="">{lead.leadId}</a>
+            <a
+              href=""
+              id="lead"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(getSingleLead(getLeadId(lead.leadId)));
+              }}
+            >
+              {lead.leadId}
+            </a>
           </td>
           <td>{lead.createdAt.substring(0, 10)}</td>
           <td>{lead.business_name}</td>
@@ -94,6 +113,13 @@ export const Home = (props) => {
       }
     }
     return count.length;
+  };
+
+  const getLeadId = (item) => {
+    const leadPair = {};
+    leadPair.leadId = item;
+    console.log(leadPair);
+    return leadPair;
   };
 
   return (
@@ -189,32 +215,100 @@ export const Home = (props) => {
                 <Form>
                   <Row>
                     <Col>
-                      <HomeInput label="Lead Id" type="text" />
-                      <HomeInput label="Business" type="text" />
-                      <HomeInput label="Industry" type="text" />
-                      <HomeInput label="Contact Person" type="text" />
-                      <HomeInput label="Email" type="email" />
-                      <HomeInput label="Phone" type="text" />
-                      <HomeInput label="Region" type="text" />
-                      <HomeInput label="Created by" type="text" />
-                      <HomeInput label="Department" type="text" />
+                      <HomeInput
+                        label="Lead Id"
+                        type="text"
+                        value={singleLeadItem.leadId}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Business"
+                        type="text"
+                        value={singleLeadItem.business_name}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Industry"
+                        type="text"
+                        value={singleLeadItem.industry}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Contact Person"
+                        type="text"
+                        value={singleLeadItem.contact_person}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Email"
+                        type="email"
+                        value={singleLeadItem.contact_email}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Phone"
+                        type="text"
+                        value={singleLeadItem.contact_number}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Region"
+                        type="text"
+                        value={singleLeadItem.region}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Created by"
+                        type="text"
+                        value={singleLeadItem.created_by}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Department"
+                        type="text"
+                        value={singleLeadItem.creator_department}
+                        onChange={(e) => {}}
+                      />
                     </Col>
                     <Col>
-                      <HomeInput label="Service" type="text" />
-                      <HomeInput label="Sub-Type" type="text" />
+                      <HomeInput
+                        label="Service"
+                        type="text"
+                        value={singleLeadItem.service_type}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Sub-Type"
+                        type="text"
+                        value={singleLeadItem.service_subtype}
+                        onChange={(e) => {}}
+                      />
                       <HomeInput
                         label="More Info"
                         as="textarea"
                         row="3"
                         type="text"
+                        placeHolder="Capture discusion details with customer"
+                        required
                       />
-                      <HomeInput label="Status" type="text" />
-                      <HomeInput label="Assigned to" />
+                      <HomeInput
+                        label="Status"
+                        type="text"
+                        value={singleLeadItem.status}
+                        onChange={(e) => {}}
+                      />
+                      <HomeInput
+                        label="Assigned to"
+                        value={singleLeadItem.sales_person}
+                        onChange={(e) => {}}
+                      />
                       <HomeInput
                         label="Notes"
                         as="textarea"
-                        row="5"
+                        row="7"
                         type="text"
+                        value={singleLeadItem.notes}
+                        onChange={(e) => {}}
                       />
                     </Col>
                   </Row>
@@ -224,7 +318,7 @@ export const Home = (props) => {
                     type="submit"
                     style={{ width: "160px" }}
                   >
-                    Submit
+                    Close Lead
                   </Button>
                 </Form>
               </Row>

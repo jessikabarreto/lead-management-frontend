@@ -1,6 +1,5 @@
 import axios from "../helpers/axios";
 import { leadConstants } from "./constants";
-import { authConstants } from "./constants";
 
 export const getAllLeads = () => {
   return async (dispatch) => {
@@ -34,5 +33,29 @@ export const addLead = (form) => {
       .catch(function (error) {
         console.log(error);
       });
+  };
+};
+
+export const getSingleLead = (idPair) => {
+  return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_ONE_LEAD_REQUEST });
+    const res = await axios.get("profile/single-lead", {
+      params: idPair,
+    });
+    if (res.status === 200) {
+      const singleLead = res.data;
+      // console.log(singleLead);
+      dispatch({
+        type: leadConstants.GET_ONE_LEAD_SUCCESS,
+        payload: { singleLead },
+      });
+    } else {
+      dispatch({
+        type: leadConstants.GET_ONE_LEAD_FAILURE,
+        payload: {
+          error: res.data.error,
+        },
+      });
+    }
   };
 };

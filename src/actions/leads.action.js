@@ -59,3 +59,40 @@ export const getSingleLead = (idPair) => {
     }
   };
 };
+
+export const updateLeadClose = (form) => {
+  return async (dispatch) => {
+    const res = await axios
+      .post("/profile/update-lead/close", form)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+export const searchLead = (idPair) => {
+  return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_ONE_LEAD_REQUEST });
+    const res = await axios.get("profile/single-lead", {
+      params: idPair,
+    });
+    if (res.status === 200) {
+      const singleLead = res.data;
+      // console.log(singleLead);
+      dispatch({
+        type: leadConstants.GET_ONE_LEAD_SUCCESS,
+        payload: { singleLead },
+      });
+    } else {
+      dispatch({
+        type: leadConstants.GET_ONE_LEAD_FAILURE,
+        payload: {
+          error: res.data.error,
+        },
+      });
+    }
+  };
+};

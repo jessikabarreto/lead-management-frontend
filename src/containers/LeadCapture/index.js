@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { addLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
@@ -25,11 +25,7 @@ export const LeadCapture = (props) => {
   const [service_subtype, setSubType] = useState("");
   const [region, setRegion] = useState("");
   const [notes, setNotes] = useState("");
-  // const [createcBy, setCreatedBy] = useState('')
-  // const [creatorEmail, setCreatorEmail] = useState('')
-  // const [creatorEk, setCreatorEk] = useState('')
-  // const [creatorDep, setCreatorDep] = useState('')
-  // const [creatorPosition, setCreatorposition] = useState('')
+
   const createLead = (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -74,6 +70,15 @@ export const LeadCapture = (props) => {
       dispatch(addLead(lead));
       document.getElementById("msg").innerHTML = "Lead successfully created";
       document.getElementById("msg").classList.add("success");
+      setBusinessName("");
+      setIndustry("");
+      setContactPerson("");
+      setEmail("");
+      setPhone("");
+      setServiceType("");
+      setSubType("");
+      setRegion("");
+      setNotes("");
     }
   };
 
@@ -89,12 +94,12 @@ export const LeadCapture = (props) => {
             margin: "30px 20px 0px 20px",
           }}
         >
-          <Form style={{ marginTop: "50px" }}>
+          <Form id="form" style={{ marginTop: "50px" }}>
             <Row>
               <Col>
                 <Input
                   label="Business Name"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Business Name"
                   type="text"
@@ -104,7 +109,7 @@ export const LeadCapture = (props) => {
                 />
                 <Input
                   label="Contact Person"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Contact Person"
                   type="text"
@@ -114,7 +119,7 @@ export const LeadCapture = (props) => {
                 />
                 <Form.Select
                   aria-label="Default select example"
-                  className="mb-3"
+                  className="mb-3 form"
                   id=""
                   style={{ fontSize: "12px" }}
                   value={region}
@@ -143,7 +148,7 @@ export const LeadCapture = (props) => {
               <Col>
                 <Input
                   label="Industry"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Industry"
                   type="text"
@@ -153,7 +158,7 @@ export const LeadCapture = (props) => {
                 />
                 <Input
                   label="Contact Email"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Contact Email address"
                   type="email"
@@ -166,6 +171,7 @@ export const LeadCapture = (props) => {
                     <Select label="Service Type" />
                     <Form.Select
                       aria-label="Default select example"
+                      className="form"
                       style={{ fontSize: "12px" }}
                       value={service_type}
                       onChange={(e) => setServiceType(e.target.value)}
@@ -183,6 +189,7 @@ export const LeadCapture = (props) => {
                     <Select label="Service Sub-Type" />
                     <Form.Select
                       aria-label="Default select example"
+                      className="form"
                       style={{ fontSize: "12px" }}
                       value={service_subtype}
                       onChange={(e) => setSubType(e.target.value)}
@@ -253,7 +260,7 @@ export const LeadCapture = (props) => {
               <Col>
                 <Input
                   label="Contact Phone"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Contact number"
                   type="text"
@@ -265,7 +272,7 @@ export const LeadCapture = (props) => {
                   label="Additionl Notes"
                   as="textarea"
                   rows="5"
-                  class="mb-3"
+                  class="mb-3 form"
                   id=""
                   placeholder="Enter Notes"
                   type="text"
@@ -275,68 +282,6 @@ export const LeadCapture = (props) => {
                 />
               </Col>
             </Row>
-            {/* <Row>
-              <Col>
-                <Input
-                  rows="5"
-                  class="mb-3"
-                  id=""
-                  placeholder="Creator_name"
-                  type="hidden"
-                  value=""
-                  required
-                  onChange={(e) => {}}
-                />
-              </Col>
-              <Col>
-                <Input
-                  rows="5"
-                  class="mb-3"
-                  id=""
-                  placeholder="EK_no"
-                  type="hidden"
-                  value=""
-                  required
-                  onChange={(e) => {}}
-                />
-              </Col>
-              <Col>
-                <Input
-                  rows="5"
-                  class="mb-3"
-                  id=""
-                  placeholder="creator_email"
-                  type="hidden"
-                  value=""
-                  required
-                  onChange={(e) => {}}
-                />
-              </Col>
-              <Col>
-                <Input
-                  rows="5"
-                  class="mb-3"
-                  id=""
-                  placeholder="department"
-                  type="hidden"
-                  value=""
-                  required
-                  onChange={(e) => {}}
-                />
-              </Col>
-              <Col>
-                <Input
-                  rows="5"
-                  class="mb-3"
-                  id=""
-                  placeholder="creatore_position"
-                  type="hidden"
-                  value=""
-                  required
-                  onChange={(e) => {}}
-                />
-              </Col>
-            </Row> */}
           </Form>
           <p className="mt-3 text-center" id="msg"></p>
         </div>

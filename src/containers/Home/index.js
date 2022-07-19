@@ -3,7 +3,7 @@ import { Row, Col, Button, Table, Form } from "react-bootstrap";
 import { Layout } from "../../components/Layout";
 import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/css/Home.css";
-import { getAllLeads, getSingleLead } from "../../actions";
+import { getAllLeads, getSingleLead, updateLeadClose } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeInput } from "../../components/UI/Input";
 
@@ -13,54 +13,54 @@ import { HomeInput } from "../../components/UI/Input";
  **/
 
 export const Home = (props) => {
+  const auth = useSelector((state) => state.auth);
+  const userName = auth.user.fullname;
+  const _id = auth.user._id;
   const leads = useSelector((state) => state.leads);
   const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const dispatch = useDispatch();
+  const leadId = singleLeadItem.leadId;
+  const [notes, setNotes] = useState("");
 
   // console.log(singleLeadItem);
+  // console.log(userName);
   useEffect(() => {
     dispatch(getAllLeads());
   }, []);
 
-  const test = (leads) => {
-    const leadSingleItem = {};
-    for (let lead of leads) {
-      leadSingleItem.leadId = lead.leadId;
-    }
-    return leadSingleItem;
-  };
-
   const renderLeads = (leads) => {
     let leadItem = [];
     for (let lead of leads) {
-      leadItem.push(
-        <tr key={lead._id}>
-          <td>
-            <a
-              href=""
-              id="lead"
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(getSingleLead(getLeadId(lead.leadId)));
-              }}
-            >
-              {lead.leadId}
-            </a>
-          </td>
-          <td>{lead.createdAt.substring(0, 10)}</td>
-          <td>{lead.business_name}</td>
-          <td>{lead.industry}</td>
-          <td>{lead.contact_person}</td>
-          <td>{lead.contact_email}</td>
-          <td>{lead.contact_number}</td>
-          <td>{lead.service_type}</td>
-          <td>{lead.service_subtype}</td>
-          <td>{lead.region}</td>
-          <td>{lead.created_by}</td>
-          <td>{lead.creator_department}</td>
-          <td>{lead.status}</td>
-        </tr>
-      );
+      if (lead.status === "ASSIGNED" && lead.sales_person === userName) {
+        leadItem.push(
+          <tr key={lead._id}>
+            <td>
+              <a
+                href=""
+                id="lead"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(getSingleLead(getLeadId(lead.leadId)));
+                }}
+              >
+                {lead.leadId}
+              </a>
+            </td>
+            <td>{lead.createdAt.substring(0, 10)}</td>
+            <td>{lead.business_name}</td>
+            <td>{lead.industry}</td>
+            <td>{lead.contact_person}</td>
+            <td>{lead.contact_email}</td>
+            <td>{lead.contact_number}</td>
+            <td>{lead.service_type}</td>
+            <td>{lead.service_subtype}</td>
+            <td>{lead.region}</td>
+            <td>{lead.created_by}</td>
+            <td>{lead.creator_department}</td>
+            <td>{lead.status}</td>
+          </tr>
+        );
+      }
     }
     return leadItem;
   };
@@ -68,7 +68,7 @@ export const Home = (props) => {
   const renderClosedLeads = (leads) => {
     let leadItem = [];
     for (let lead of leads) {
-      if (lead.status === "CLOSED") {
+      if (lead.status === "CLOSED" && lead.sales_person === userName) {
         leadItem.push(
           <tr key={lead._id}>
             <td>{lead.leadId}</td>
@@ -92,13 +92,19 @@ export const Home = (props) => {
   };
 
   const totalLeadsCount = (leads) => {
-    return leads.length;
+    let count = [];
+    for (let lead of leads) {
+      if (lead.status !== "OPEN" && lead.sales_person === userName) {
+        count.push(lead);
+      }
+    }
+    return count.length;
   };
 
   const assignedLeadsCount = (leads) => {
     let count = [];
     for (let lead of leads) {
-      if (lead.status === "ASSIGNED") {
+      if (lead.status === "ASSIGNED" && lead.sales_person === userName) {
         count.push(lead);
       }
     }
@@ -108,7 +114,7 @@ export const Home = (props) => {
   const closedLeadsCount = (leads) => {
     let count = [];
     for (let lead of leads) {
-      if (lead.status === "CLOSED") {
+      if (lead.status === "CLOSED" && lead.sales_person === userName) {
         count.push(lead);
       }
     }
@@ -120,6 +126,20 @@ export const Home = (props) => {
     leadPair.leadId = item;
     console.log(leadPair);
     return leadPair;
+  };
+
+  const updateLead = (e) => {
+    const form = new FormData();
+    form.append("_id", _id);
+    form.append("leadId", leadId);
+    form.append("notes", notes);
+
+    const update = {
+      _id,
+      leadId,
+      notes,
+    };
+    dispatch(updateLeadClose(update));
   };
 
   return (
@@ -218,56 +238,65 @@ export const Home = (props) => {
                       <HomeInput
                         label="Lead Id"
                         type="text"
-                        value={singleLeadItem.leadId}
+                        value={leadId}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Business"
                         type="text"
                         value={singleLeadItem.business_name}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Industry"
                         type="text"
                         value={singleLeadItem.industry}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Contact Person"
                         type="text"
                         value={singleLeadItem.contact_person}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Email"
                         type="email"
                         value={singleLeadItem.contact_email}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Phone"
                         type="text"
                         value={singleLeadItem.contact_number}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Region"
                         type="text"
                         value={singleLeadItem.region}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Created by"
                         type="text"
                         value={singleLeadItem.created_by}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Department"
                         type="text"
                         value={singleLeadItem.creator_department}
                         onChange={(e) => {}}
+                        required
                       />
                     </Col>
                     <Col>
@@ -276,19 +305,13 @@ export const Home = (props) => {
                         type="text"
                         value={singleLeadItem.service_type}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Sub-Type"
                         type="text"
                         value={singleLeadItem.service_subtype}
                         onChange={(e) => {}}
-                      />
-                      <HomeInput
-                        label="More Info"
-                        as="textarea"
-                        row="3"
-                        type="text"
-                        placeHolder="Capture discusion details with customer"
                         required
                       />
                       <HomeInput
@@ -296,19 +319,31 @@ export const Home = (props) => {
                         type="text"
                         value={singleLeadItem.status}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Assigned to"
                         value={singleLeadItem.sales_person}
                         onChange={(e) => {}}
+                        required
                       />
                       <HomeInput
                         label="Notes"
                         as="textarea"
-                        row="7"
+                        row="5"
                         type="text"
                         value={singleLeadItem.notes}
                         onChange={(e) => {}}
+                        required
+                      />
+                      <HomeInput
+                        label="Close Remarks"
+                        as="textarea"
+                        row="3"
+                        type="text"
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        required
                       />
                     </Col>
                   </Row>
@@ -317,6 +352,7 @@ export const Home = (props) => {
                     variant="success"
                     type="submit"
                     style={{ width: "160px" }}
+                    onClick={updateLead}
                   >
                     Close Lead
                   </Button>

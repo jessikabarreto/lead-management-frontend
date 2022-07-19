@@ -54,3 +54,21 @@ export const HomeInput = (props) => {
     </InputGroup>
   );
 };
+
+export const TrackerElement = (props) => {
+  return (
+    <div className="mb-2 input-div row">
+      <label className="text-muted form-label details-label col-4">
+        {props.label}
+      </label>
+      <p
+        className=" border rounded input-field col-7 bg-light"
+        id={props.id}
+        style={{ margingTop: "0.1em", marginBottom: "0.2em" }}
+        onChange={props.onChange}
+      >
+        {props.entry}
+      </p>
+    </div>
+  );
+};

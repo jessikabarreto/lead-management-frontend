@@ -9,7 +9,6 @@ import {
   getSingleLead,
   leadUserSales,
   updateAssignLead,
-  updateLeadClose,
 } from "../../actions";
 import "../../assets/css/Admin.css";
 
@@ -186,7 +185,13 @@ export const Administration = (props) => {
 
   return (
     <Layout>
-      <div className="" style={{ borderTop: "1px solid #efefef" }}>
+      <div
+        className=""
+        style={{
+          borderTop: "1px solid #efefef",
+          marginRight: "20px",
+        }}
+      >
         <Row>
           <Col>
             <h1
@@ -202,25 +207,32 @@ export const Administration = (props) => {
               marginTop: "20px",
             }}
           >
-            <Row>
-              <Form>
-                <Row>
-                  <Col>
-                    <HomeInput label="From" type="date" />
-                    <Button className="btn-sm" variant="success" type="submit">
-                      <i className="bi bi-search text-white"></i>
-                    </Button>
-                  </Col>
-                  <Col>
-                    <HomeInput label="To" type="date" />
-                  </Col>
-                  <Col>
-                    <HomeInput label="Lead ID" type="text" />
-                    <HomeInput label="Region" type="text" />
-                    <HomeInput label="Service" type="text" />
-                  </Col>
-                </Row>
-              </Form>
+            <Row className="mb-3">
+              <Col className="col-10 text-muted">
+                <p
+                  className="mb-0"
+                  style={{
+                    float: "right",
+                  }}
+                >
+                  Search for leads:
+                </p>
+              </Col>
+              <Col className="col-1">
+                <a
+                  href="/search"
+                  className="btn-sm"
+                  variant="success"
+                  type="btn"
+                  style={{
+                    border: "1px solid rgb(194, 189, 189)",
+                    background: "green",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <i className="bi bi-search text-white ms-2"></i>
+                </a>
+              </Col>
             </Row>
           </Col>
         </Row>

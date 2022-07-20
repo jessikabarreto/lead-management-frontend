@@ -12,6 +12,7 @@ import { Administration } from "./containers/Administration";
 import { LeadCapture } from "./containers/LeadCapture";
 import { LeadTracker } from "./containers/LeadTracker";
 import { Dashboard } from "./containers/Dashboard";
+import { Search } from "./containers/Sesrch";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,14 @@ function App() {
           element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <PrivateRoute>
+              <Search />
             </PrivateRoute>
           }
         />

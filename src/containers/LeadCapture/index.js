@@ -127,9 +127,7 @@ export const LeadCapture = (props) => {
                   required
                 >
                   <option>Select Region</option>
-                  <option value="NAIROBI EAST">NAIROBI EAST</option>
-                  <option value="NAIROBI WEST">NAIROBI WEST</option>
-                  <option value="NAIROBI CENRAL">NAIROBI CENRAL</option>
+                  <option value="NAIROBI CENRAL">NAIROBI</option>
                   <option value="MOUNTAIN">MOUNTAIN</option>
                   <option value="COAST">COAST</option>
                   <option value="RIFT">RIFT</option>

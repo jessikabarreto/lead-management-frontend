@@ -96,3 +96,27 @@ export const searchLead = (idPair) => {
     }
   };
 };
+
+export const leadUserSales = (salesPair) => {
+  return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_USER_LEAD_REQUEST });
+    const res = await axios.get("profile/leads/users", {
+      params: salesPair,
+    });
+    if (res.status === 200) {
+      const leadUsers = res.data;
+      // console.log(leadUsers);
+      dispatch({
+        type: leadConstants.GET_USER_LEAD_SUCCESS,
+        payload: { leadUsers },
+      });
+    } else {
+      dispatch({
+        type: leadConstants.GET_USER_LEAD_FAILURE,
+        payload: {
+          error: res.data.error,
+        },
+      });
+    }
+  };
+};

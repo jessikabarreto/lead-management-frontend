@@ -228,7 +228,7 @@ export const Home = (props) => {
               </Row>
             </Col>
           </Row>
-          <Row className="leads">
+          <Row className="leads-details">
             <Col style={{ marginLeft: "10px" }}>
               <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
               <Row>

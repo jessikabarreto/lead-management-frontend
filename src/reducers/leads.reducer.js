@@ -10,6 +10,10 @@ const singleinitState = {
   singleLead: {},
 };
 
+const leadUsersinitState = {
+  leadUsers: [],
+};
+
 export const leadsReducer = (state = initState, action) => {
   switch (action.type) {
     case leadConstants.GET_ALL_LEADS_SUCCESS:
@@ -28,6 +32,18 @@ export const singleLeadReducer = (state = singleinitState, action) => {
       state = {
         ...state,
         singleLead: action.payload.singleLead,
+      };
+      break;
+  }
+  return state;
+};
+
+export const leadUserReducer = (state = leadUsersinitState, action) => {
+  switch (action.type) {
+    case leadConstants.GET_USER_LEAD_SUCCESS:
+      state = {
+        ...state,
+        leadUsers: action.payload.leadUsers,
       };
       break;
   }

@@ -40,7 +40,7 @@ export const Select = (props) => {
 
 export const HomeInput = (props) => {
   return (
-    <InputGroup className="mb-2">
+    <InputGroup className="mb-2 input-group-sm" style={{ lineHeight: "10px" }}>
       <InputGroup.Text>{props.label}</InputGroup.Text>
       <FormControl
         aria-label="First name"

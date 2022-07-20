@@ -120,3 +120,16 @@ export const leadUserSales = (salesPair) => {
     }
   };
 };
+
+export const updateAssignLead = (form) => {
+  return async (dispatch) => {
+    const res = await axios
+      .post("/profile/update-lead/assign", form)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};

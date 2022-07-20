@@ -8,6 +8,7 @@ import {
   getAllLeads,
   getSingleLead,
   leadUserSales,
+  updateAssignLead,
   updateLeadClose,
 } from "../../actions";
 import "../../assets/css/Admin.css";
@@ -20,7 +21,6 @@ import "../../assets/css/Admin.css";
 export const Administration = (props) => {
   const auth = useSelector((state) => state.auth);
   const leads = useSelector((state) => state.leads);
-  const state = useSelector((state) => state);
   const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const assignSale = useSelector((state) => state.leadUsers);
   const dispatch = useDispatch();
@@ -28,15 +28,45 @@ export const Administration = (props) => {
   const _id = auth.user._id;
   const leadId = singleLeadItem.leadId;
   const [notes, setNotes] = useState("");
-  console.log(assignSale);
+  const [assign, setAssign] = useState("");
+  const [salesPersonId, setsalesPersonId] = useState("");
+
+  const salesPersondetails = (e) => {
+    const selectedSalesPerson = {};
+    if (assign === "DISQUALIFIED") {
+      selectedSalesPerson.sales_person = "N/A";
+      selectedSalesPerson.sales_person_email = "N/A";
+      selectedSalesPerson.sales_person_ekno = "N/A";
+      selectedSalesPerson.sales_person_department = "N/A";
+      selectedSalesPerson.sales_person_position = "N/A";
+      document
+        .getElementById("sales-person")
+        .setAttribute("disabled", "disabled");
+    } else if (assign === "ASSIGNED") {
+      document.getElementById("sales-person").removeAttribute("disabled");
+      for (let person of assignSale.leadUsers) {
+        if (person._id === salesPersonId) {
+          selectedSalesPerson.sales_person = `${person.firstname} ${person.lastname}`;
+          selectedSalesPerson.sales_person_email = person.email;
+          selectedSalesPerson.sales_person_ekno = person.ekno;
+          selectedSalesPerson.sales_person_department = person.department;
+          selectedSalesPerson.sales_person_position = person.role;
+        }
+      }
+    }
+    return selectedSalesPerson;
+  };
+  // console.log(salesPersondetails());
+
+  const sales_person = salesPersondetails().sales_person;
+  const sales_person_email = salesPersondetails().sales_person_email;
+  const sales_person_ekno = salesPersondetails().sales_person_ekno;
+  const sales_person_department = salesPersondetails().sales_person_department;
+  const sales_person_position = salesPersondetails().sales_person_position;
 
   useEffect(() => {
     dispatch(getAllLeads());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(leadUserSales(getSalesPerson(singleLeadItem.region)));
-  // }, []);
 
   const getLeadId = (item) => {
     const leadPair = {};
@@ -57,62 +87,38 @@ export const Administration = (props) => {
     form.append("_id", _id);
     form.append("leadId", leadId);
     form.append("notes", notes);
+    form.append("assign", assign);
+    form.append("sales_person", sales_person);
+    form.append("sales_person_email", sales_person_email);
+    form.append("sales_person_ekno", sales_person_ekno);
+    form.append("sales_person_department", sales_person_department);
+    form.append("sales_person_position", sales_person_position);
 
     const update = {
       _id,
       leadId,
       notes,
+      assign,
+      sales_person,
+      sales_person_email,
+      sales_person_ekno,
+      sales_person_department,
+      sales_person_position,
     };
-    dispatch(updateLeadClose(update));
+    dispatch(updateAssignLead(update));
   };
 
   const renderSalesPeople = (salesTeam) => {
     let salesPeople = [];
     for (let person of salesTeam) {
       salesPeople.push(
-        <option value={person._id}>
+        <option key={person._id} value={person._id}>
           {person.firstname} {person.lastname}
         </option>
       );
     }
+    return salesPeople;
   };
-
-  // const renderLeads = (leads) => {
-  //   let leadItem = [];
-  //   for (let lead of leads) {
-  //     if (lead.status === "ASSIGNED" && lead.sales_person === userName) {
-  //       leadItem.push(
-  //         <tr key={lead._id}>
-  //           <td>
-  //             <a
-  //               href=""
-  //               id="lead"
-  //               onClick={(e) => {
-  //                 e.preventDefault();
-  //                 dispatch(getSingleLead(getLeadId(lead.leadId)));
-  //               }}
-  //             >
-  //               {lead.leadId}
-  //             </a>
-  //           </td>
-  //           <td>{lead.createdAt.substring(0, 10)}</td>
-  //           <td>{lead.business_name}</td>
-  //           <td>{lead.industry}</td>
-  //           <td>{lead.contact_person}</td>
-  //           <td>{lead.contact_email}</td>
-  //           <td>{lead.contact_number}</td>
-  //           <td>{lead.service_type}</td>
-  //           <td>{lead.service_subtype}</td>
-  //           <td>{lead.region}</td>
-  //           <td>{lead.created_by}</td>
-  //           <td>{lead.creator_department}</td>
-  //           <td>{lead.status}</td>
-  //         </tr>
-  //       );
-  //     }
-  //   }
-  //   return leadItem;
-  // };
 
   const renderOpenLeads = (leads) => {
     let leadItem = [];
@@ -129,13 +135,7 @@ export const Administration = (props) => {
             <td>{lead.contact_number}</td>
             <td>{lead.service_type}</td>
             <td>{lead.service_subtype}</td>
-            <td
-            // onChange={(e) => {
-            //   dispatch(leadUserSales(getSalesPerson(singleLeadItem.region)));
-            // }}
-            >
-              {lead.region}
-            </td>
+            <td>{lead.region}</td>
             <td>{lead.created_by}</td>
             <td>{lead.creator_department}</td>
             <td>{lead.status}</td>
@@ -352,8 +352,8 @@ export const Administration = (props) => {
                         aria-label="Default select example"
                         className="form mb-2"
                         style={{ fontSize: "12px" }}
-                        // value={service_type}
-                        // onChange={(e) => setServiceType(e.target.value)}
+                        value={assign}
+                        onChange={(e) => setAssign(e.target.value)}
                         required
                       >
                         <option>Select Status</option>
@@ -364,9 +364,10 @@ export const Administration = (props) => {
                         aria-label="Default select example"
                         className="form mb-2"
                         style={{ fontSize: "12px" }}
-                        // value={service_type}
-                        // onChange={(e) => setServiceType(e.target.value)}
+                        value={salesPersonId}
+                        onChange={(e) => setsalesPersonId(e.target.value)}
                         required
+                        id="sales-person"
                       >
                         <option>Select Sales Person</option>
                         {renderSalesPeople(assignSale.leadUsers)}

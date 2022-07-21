@@ -133,3 +133,25 @@ export const updateAssignLead = (form) => {
       });
   };
 };
+
+export const productTotal = () => {
+  return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_TOTALS_REQUEST });
+    const res = await axios.get("profile/leads/product-totals");
+    console.log(res.data);
+    if (res.status === 200) {
+      const productTotals = res.data;
+      dispatch({
+        type: leadConstants.GET_TOTALS_SUCCESS,
+        payload: { productTotals: productTotals },
+      });
+    } else {
+      dispatch({
+        type: leadConstants.GET_TOTALS_FAILURE,
+        payload: {
+          error: res.data.error,
+        },
+      });
+    }
+  };
+};

@@ -3,7 +3,12 @@ import { Row, Col, Button, Table, Form } from "react-bootstrap";
 import { Layout } from "../../components/Layout";
 import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/css/Home.css";
-import { getAllLeads, getSingleLead, updateLeadClose } from "../../actions";
+import {
+  getAllLeads,
+  getSingleLead,
+  productTotal,
+  updateLeadClose,
+} from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeInput } from "../../components/UI/Input";
 
@@ -23,7 +28,7 @@ export const Home = (props) => {
   const [notes, setNotes] = useState("");
 
   // console.log(singleLeadItem);
-  // console.log(userName);
+  console.log(useSelector((state) => state));
   useEffect(() => {
     dispatch(getAllLeads());
   }, []);

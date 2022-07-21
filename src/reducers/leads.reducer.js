@@ -14,6 +14,10 @@ const leadUsersinitState = {
   leadUsers: [],
 };
 
+const productinitState = {
+  productTotals: [],
+};
+
 export const leadsReducer = (state = initState, action) => {
   switch (action.type) {
     case leadConstants.GET_ALL_LEADS_SUCCESS:
@@ -44,6 +48,18 @@ export const leadUserReducer = (state = leadUsersinitState, action) => {
       state = {
         ...state,
         leadUsers: action.payload.leadUsers,
+      };
+      break;
+  }
+  return state;
+};
+
+export const productTotalsReducer = (state = productinitState, action) => {
+  switch (action.type) {
+    case leadConstants.GET_ALL_LEADS_SUCCESS:
+      state = {
+        ...state,
+        productTotals: action.payload.productTotals,
       };
       break;
   }

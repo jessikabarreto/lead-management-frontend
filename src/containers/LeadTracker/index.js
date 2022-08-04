@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
-import { Row, Col, Button, Table, Form } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import { Input, TrackerElement } from "../../components/UI/Input";
 import { searchLead } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";

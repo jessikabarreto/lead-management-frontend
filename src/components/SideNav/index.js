@@ -1,5 +1,6 @@
 import React from "react";
 import "../../assets/css/SideNav.css";
+import { useSelector } from "react-redux";
 
 /**
  * @author
@@ -7,6 +8,8 @@ import "../../assets/css/SideNav.css";
  **/
 
 export const SideNav = (props) => {
+  const userAccess = useSelector((state) => state.auth.user.access);
+
   const Rule = ({ color }) => (
     <hr
       style={{
@@ -16,55 +19,185 @@ export const SideNav = (props) => {
     />
   );
 
-  return (
-    <>
-      <div className="sidenav sidenav-a" style={{ width: props.width }}>
-        <a href="#section" className="closebtn" onClick={props.closeNav}>
-          <i className="bi bi-x-square"></i>
-        </a>
-        <Rule color="gray" />
-        <a href="/">
-          <i className="bi bi-house-fill"></i>
-          Sales Workspace
-        </a>
-        <a href="/leadcapture">
-          <i className="bi bi-menu-button-wide-fill"></i>
-          Lead Capture
-        </a>
-        <a href="/leadtracker">
-          <i className="bi bi-list-stars"></i>
-          Lead Tracker
-        </a>
-        <a href="/administration">
-          <i className="bi bi-folder-check"></i>
-          Administration
-        </a>
-        <a href="/dashboard">
-          <i className="bi bi-clipboard-data"></i>
-          Dashboard
-        </a>
-      </div>
-      <div className="sidenav sidenav-i" style={{ width: props.width }}>
-        <a href="#section" className="closebtn" onClick={props.closeNav}>
-          <i className="bi bi-x-square"></i>
-        </a>
-        <Rule color="gray" />
-        <a href="/">
-          <i className="bi bi-house-fill"></i>
-        </a>
-        <a href="/leadcapture">
-          <i className="bi bi-menu-button-wide-fill"></i>
-        </a>
-        <a href="/leadtracker">
-          <i className="bi bi-list-stars"></i>
-        </a>
-        <a href="/administration">
-          <i className="bi bi-folder-check"></i>
-        </a>
-        <a href="/dashboard">
-          <i className="bi bi-clipboard-data"></i>
-        </a>
-      </div>
-    </>
-  );
+  if (userAccess === "sales") {
+    return (
+      <>
+        <div className="sidenav sidenav-a" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-house-fill"></i>
+            Sales Workspace
+          </a>
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+            Lead Capture
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+            Lead Tracker
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+            Dashboard
+          </a>
+        </div>
+        <div className="sidenav sidenav-i" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-house-fill"></i>
+          </a>
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+          </a>
+        </div>
+      </>
+    );
+  } else if (userAccess === "admin") {
+    return (
+      <>
+        <div className="sidenav sidenav-a" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+            Lead Capture
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+            Lead Tracker
+          </a>
+          <a href="/">
+            <i className="bi bi-folder-check"></i>
+            Administration
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+            Dashboard
+          </a>
+        </div>
+        <div className="sidenav sidenav-i" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+          </a>
+          <a href="/">
+            <i className="bi bi-folder-check"></i>
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+          </a>
+        </div>
+      </>
+    );
+  } else if (userAccess === "superuser") {
+    return (
+      <>
+        <div className="sidenav sidenav-a" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-house-fill"></i>
+            Sales Workspace
+          </a>
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+            Lead Capture
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+            Lead Tracker
+          </a>
+          <a href="/administration">
+            <i className="bi bi-folder-check"></i>
+            Administration
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+            Dashboard
+          </a>
+        </div>
+        <div className="sidenav sidenav-i" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-house-fill"></i>
+          </a>
+          <a href="/leadcapture">
+            <i className="bi bi-menu-button-wide-fill"></i>
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+          </a>
+          <a href="/administration">
+            <i className="bi bi-folder-check"></i>
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+          </a>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="sidenav sidenav-a" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-menu-button-wide-fill"></i>
+            Lead Capture
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+            Lead Tracker
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+            Dashboard
+          </a>
+        </div>
+        <div className="sidenav sidenav-i" style={{ width: props.width }}>
+          <a href="#section" className="closebtn" onClick={props.closeNav}>
+            <i className="bi bi-x-square"></i>
+          </a>
+          <Rule color="gray" />
+          <a href="/">
+            <i className="bi bi-menu-button-wide-fill"></i>
+          </a>
+          <a href="/leadtracker">
+            <i className="bi bi-list-stars"></i>
+          </a>
+          <a href="/dashboard">
+            <i className="bi bi-clipboard-data"></i>
+          </a>
+        </div>
+      </>
+    );
+  }
 };

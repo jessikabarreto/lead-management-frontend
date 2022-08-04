@@ -24,6 +24,7 @@ export const Administration = (props) => {
   const assignSale = useSelector((state) => state.leadUsers);
   const dispatch = useDispatch();
   const userDetails = auth.user;
+  const userAccess = auth.user.access;
   const _id = auth.user._id;
   const leadId = singleLeadItem.leadId;
   const [notes, setNotes] = useState("");
@@ -183,258 +184,285 @@ export const Administration = (props) => {
     return leadItem;
   };
 
-  return (
-    <Layout>
-      <div
-        className=""
-        style={{
-          borderTop: "1px solid #efefef",
-          marginRight: "20px",
-        }}
-      >
-        <Row>
-          <Col>
-            <h1
-              style={{ marginLeft: "40px", marginTop: "60px", color: "gray" }}
+  if (userAccess !== "admin") {
+    return (
+      <Layout>
+        <div className="home" style={{ borderTop: "1px solid #efefef" }}>
+          <Row style={{ marginTop: "100px" }}>
+            <Col
+              className="alert alert-success col-8 "
+              role="alert"
+              style={{ margin: "auto", top: "50%" }}
             >
-              Admin Page
-            </h1>
-          </Col>
-          <Col
-            className=""
-            style={{
-              marginRight: "10px",
-              marginTop: "20px",
-            }}
-          >
-            <Row className="mb-3">
-              <Col className="col-10 text-muted">
-                <p
-                  className="mb-0"
-                  style={{
-                    float: "right",
-                  }}
-                >
-                  Search for leads:
-                </p>
-              </Col>
-              <Col className="col-1">
-                <a
-                  href="/search"
-                  className="btn-sm"
-                  variant="success"
-                  type="btn"
-                  style={{
-                    border: "1px solid rgb(194, 189, 189)",
-                    background: "green",
-                    borderRadius: "5px",
-                  }}
-                >
-                  <i className="bi bi-search text-white ms-2"></i>
-                </a>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <div
-          style={{
-            borderTop: "1px solid #efefef",
-            margin: "30px 20px 0px 20px",
-          }}
-        >
-          <Col className="scroller-admin mt-3 border">
-            <Table striped bordered hover size="sm" className="table">
-              <thead className="table-head">
-                <tr>
-                  <th className="th">Lead ID</th>
-                  <th className="th">Date</th>
-                  <th className="th">Business</th>
-                  <th className="th">Industy</th>
-                  <th className="th">Contact</th>
-                  <th className="th">Email</th>
-                  <th className="th">Phone</th>
-                  <th className="th">Service</th>
-                  <th className="th">Sub Type</th>
-                  <th className="th">Region</th>
-                  <th className="th">created_By</th>
-                  <th className="th">Department</th>
-                  <th className="th">Status</th>
-                  <th className="th">Edit</th>
-                </tr>
-              </thead>
-              <tbody className="">{renderOpenLeads(leads.leads)}</tbody>
-            </Table>
-          </Col>
-          <Row className="leads">
-            <Col className="scroller-leads" style={{}}>
-              <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
-              <Row>
-                <Form>
-                  <Row>
-                    <Col>
-                      <HomeInput
-                        label="Lead Id"
-                        type="text"
-                        value={leadId}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Business"
-                        type="text"
-                        value={singleLeadItem.business_name}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Industry"
-                        type="text"
-                        value={singleLeadItem.industry}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Contact Person"
-                        type="text"
-                        value={singleLeadItem.contact_person}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Email"
-                        type="email"
-                        value={singleLeadItem.contact_email}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Phone"
-                        type="text"
-                        value={singleLeadItem.contact_number}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Region"
-                        type="text"
-                        value={singleLeadItem.region}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Created by"
-                        type="text"
-                        value={singleLeadItem.created_by}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Department"
-                        type="text"
-                        value={singleLeadItem.creator_department}
-                        onChange={(e) => {}}
-                        required
-                      />
-                    </Col>
-                    <Col>
-                      <HomeInput
-                        label="Service"
-                        type="text"
-                        value={singleLeadItem.service_type}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Sub-Type"
-                        type="text"
-                        value={singleLeadItem.service_subtype}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Notes"
-                        as="textarea"
-                        row="5"
-                        type="text"
-                        value={singleLeadItem.notes}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <Form.Select
-                        aria-label="Default select example"
-                        className="form mb-2"
-                        style={{ fontSize: "12px" }}
-                        value={assign}
-                        onChange={(e) => setAssign(e.target.value)}
-                        required
-                      >
-                        <option>Select Status</option>
-                        <option value="ASSIGNED">ASSIGN</option>
-                        <option value="DISQUALIFIED">DISQUALIFY</option>
-                      </Form.Select>
-                      <Form.Select
-                        aria-label="Default select example"
-                        className="form mb-2"
-                        style={{ fontSize: "12px" }}
-                        value={salesPersonId}
-                        onChange={(e) => setsalesPersonId(e.target.value)}
-                        required
-                        id="sales-person"
-                      >
-                        <option>Select Sales Person</option>
-                        {renderSalesPeople(assignSale.leadUsers)}
-                      </Form.Select>
-                      <HomeInput
-                        label="Remarks"
-                        as="textarea"
-                        row="3"
-                        type="text"
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        required
-                      />
-                    </Col>
-                  </Row>
-                  <Button
-                    className="btn-sm"
-                    variant="success"
-                    type="submit"
-                    style={{ width: "160px" }}
-                    onClick={updateLead}
-                  >
-                    Submit
-                  </Button>
-                </Form>
-              </Row>
-            </Col>
-            <Col className="scroller">
-              <h5 className="text-muted mt-2 mb-3">Assigned Deals</h5>
-              <Col className="table-container-assigned">
-                <Table striped bordered hover size="sm" className="table">
-                  <thead className="table-head">
-                    <tr>
-                      <th>Lead ID</th>
-                      <th>Date</th>
-                      <th>Business</th>
-                      <th>Industy</th>
-                      <th>Contact</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Service</th>
-                      <th>Sub Type</th>
-                      <th>Region</th>
-                      <th>created_By</th>
-                      <th>Department</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>{renderAssignedLeads(leads.leads)}</tbody>
-                </Table>
-              </Col>
+              <h4 class="alert-heading">Administration Page Alert!</h4>
+              <p>
+                Only users with administrative rights can view and access the
+                contents of this page.
+              </p>
+              <hr />
+              <p class="mb-0">
+                If you are an admin and cannot access the page please get in
+                touch with your system administrator.
+              </p>
             </Col>
           </Row>
         </div>
-      </div>
-    </Layout>
-  );
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout>
+        <div
+          className=""
+          style={{
+            borderTop: "1px solid #efefef",
+            marginRight: "20px",
+          }}
+        >
+          <Row>
+            <Col>
+              <h1
+                style={{ marginLeft: "40px", marginTop: "60px", color: "gray" }}
+              >
+                Admin Page
+              </h1>
+            </Col>
+            <Col
+              className=""
+              style={{
+                marginRight: "10px",
+                marginTop: "20px",
+              }}
+            >
+              <Row className="mb-3">
+                <Col className="col-10 text-muted">
+                  <p
+                    className="mb-0"
+                    style={{
+                      float: "right",
+                    }}
+                  >
+                    Search for leads:
+                  </p>
+                </Col>
+                <Col className="col-1">
+                  <a
+                    href="/search"
+                    className="btn-sm"
+                    variant="success"
+                    type="btn"
+                    style={{
+                      border: "1px solid rgb(194, 189, 189)",
+                      background: "green",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <i className="bi bi-search text-white ms-2"></i>
+                  </a>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          <div
+            style={{
+              borderTop: "1px solid #efefef",
+              margin: "30px 20px 0px 20px",
+            }}
+          >
+            <Col className="scroller-admin mt-3 border">
+              <Table striped bordered hover size="sm" className="table">
+                <thead className="table-head">
+                  <tr>
+                    <th className="th">Lead ID</th>
+                    <th className="th">Date</th>
+                    <th className="th">Business</th>
+                    <th className="th">Industy</th>
+                    <th className="th">Contact</th>
+                    <th className="th">Email</th>
+                    <th className="th">Phone</th>
+                    <th className="th">Service</th>
+                    <th className="th">Sub Type</th>
+                    <th className="th">Region</th>
+                    <th className="th">created_By</th>
+                    <th className="th">Department</th>
+                    <th className="th">Status</th>
+                    <th className="th">Edit</th>
+                  </tr>
+                </thead>
+                <tbody className="">{renderOpenLeads(leads.leads)}</tbody>
+              </Table>
+            </Col>
+            <Row className="leads">
+              <Col className="scroller-leads" style={{}}>
+                <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
+                <Row>
+                  <Form>
+                    <Row>
+                      <Col>
+                        <HomeInput
+                          label="Lead Id"
+                          type="text"
+                          value={leadId}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Business"
+                          type="text"
+                          value={singleLeadItem.business_name}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Industry"
+                          type="text"
+                          value={singleLeadItem.industry}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Contact Person"
+                          type="text"
+                          value={singleLeadItem.contact_person}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Email"
+                          type="email"
+                          value={singleLeadItem.contact_email}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Phone"
+                          type="text"
+                          value={singleLeadItem.contact_number}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Region"
+                          type="text"
+                          value={singleLeadItem.region}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Created by"
+                          type="text"
+                          value={singleLeadItem.created_by}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Department"
+                          type="text"
+                          value={singleLeadItem.creator_department}
+                          onChange={(e) => {}}
+                          required
+                        />
+                      </Col>
+                      <Col>
+                        <HomeInput
+                          label="Service"
+                          type="text"
+                          value={singleLeadItem.service_type}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Sub-Type"
+                          type="text"
+                          value={singleLeadItem.service_subtype}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Notes"
+                          as="textarea"
+                          row="5"
+                          type="text"
+                          value={singleLeadItem.notes}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <Form.Select
+                          aria-label="Default select example"
+                          className="form mb-2"
+                          style={{ fontSize: "12px" }}
+                          value={assign}
+                          onChange={(e) => setAssign(e.target.value)}
+                          required
+                        >
+                          <option>Select Status</option>
+                          <option value="ASSIGNED">ASSIGN</option>
+                          <option value="DISQUALIFIED">DISQUALIFY</option>
+                        </Form.Select>
+                        <Form.Select
+                          aria-label="Default select example"
+                          className="form mb-2"
+                          style={{ fontSize: "12px" }}
+                          value={salesPersonId}
+                          onChange={(e) => setsalesPersonId(e.target.value)}
+                          required
+                          id="sales-person"
+                        >
+                          <option>Select Sales Person</option>
+                          {renderSalesPeople(assignSale.leadUsers)}
+                        </Form.Select>
+                        <HomeInput
+                          label="Remarks"
+                          as="textarea"
+                          row="3"
+                          type="text"
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          required
+                        />
+                      </Col>
+                    </Row>
+                    <Button
+                      className="btn-sm"
+                      variant="success"
+                      type="submit"
+                      style={{ width: "160px" }}
+                      onClick={updateLead}
+                    >
+                      Submit
+                    </Button>
+                  </Form>
+                </Row>
+              </Col>
+              <Col className="scroller">
+                <h5 className="text-muted mt-2 mb-3">Assigned Deals</h5>
+                <Col className="table-container-assigned">
+                  <Table striped bordered hover size="sm" className="table">
+                    <thead className="table-head">
+                      <tr>
+                        <th>Lead ID</th>
+                        <th>Date</th>
+                        <th>Business</th>
+                        <th>Industy</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Service</th>
+                        <th>Sub Type</th>
+                        <th>Region</th>
+                        <th>created_By</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>{renderAssignedLeads(leads.leads)}</tbody>
+                  </Table>
+                </Col>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 };

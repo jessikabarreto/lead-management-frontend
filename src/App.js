@@ -18,6 +18,7 @@ import { GetData, GetDateData } from "./components/Charts";
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const userAccess = useSelector((state) => state.auth.user.access);
 
   useEffect(() => {
     if (!auth.authenticate) {
@@ -25,62 +26,203 @@ function App() {
     }
   }, []);
 
-  return (
-    <React.Fragment>
-      <Routes>
-        <Route
-          path="/administration"
-          element={
-            <PrivateRoute>
-              <Administration />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/leadcapture"
-          element={
-            <PrivateRoute>
-              <LeadCapture />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/leadtracker"
-          element={
-            <PrivateRoute>
-              <LeadTracker />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <PrivateRoute>
-              <Search />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/signin/" element={<Signin />} />
-        <Route path="/register/" element={<Register />} />
-      </Routes>
-    </React.Fragment>
-  );
+  if (userAccess === "sales") {
+    return (
+      <React.Fragment>
+        <Routes>
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadcapture"
+            element={
+              <PrivateRoute>
+                <LeadCapture />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signin/" element={<Signin />} />
+          <Route path="/register/" element={<Register />} />
+        </Routes>
+      </React.Fragment>
+    );
+  } else if (userAccess === "admin") {
+    return (
+      <React.Fragment>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Administration />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadcapture"
+            element={
+              <PrivateRoute>
+                <LeadCapture />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signin/" element={<Signin />} />
+          <Route path="/register/" element={<Register />} />
+        </Routes>
+      </React.Fragment>
+    );
+  } else if (userAccess === "superuser") {
+    return (
+      <React.Fragment>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/administration"
+            element={
+              <PrivateRoute>
+                <Administration />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadcapture"
+            element={
+              <PrivateRoute>
+                <LeadCapture />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signin/" element={<Signin />} />
+          <Route path="/register/" element={<Register />} />
+        </Routes>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <Routes>
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <LeadCapture />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signin/" element={<Signin />} />
+          <Route path="/register/" element={<Register />} />
+        </Routes>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;

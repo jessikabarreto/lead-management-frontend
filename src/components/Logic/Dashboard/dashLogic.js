@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getAllLeads, getSingleLead, updateLeadClose } from "../../../actions";
+import { useEffect } from "react";
+import { getAllLeads } from "../../../actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export const TotalLeadsCount = (props) => {

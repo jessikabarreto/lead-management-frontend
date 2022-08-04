@@ -3,12 +3,7 @@ import { Row, Col, Button, Table, Form } from "react-bootstrap";
 import { Layout } from "../../components/Layout";
 import "../../assets/css/bootstrap-icons/bootstrap-icons.css";
 import "../../assets/css/Home.css";
-import {
-  getAllLeads,
-  getSingleLead,
-  productTotal,
-  updateLeadClose,
-} from "../../actions";
+import { getAllLeads, getSingleLead, updateLeadClose } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeInput } from "../../components/UI/Input";
 
@@ -21,13 +16,13 @@ export const Home = (props) => {
   const auth = useSelector((state) => state.auth);
   const userName = auth.user.fullname;
   const _id = auth.user._id;
+  const userAccess = auth.user.access;
   const leads = useSelector((state) => state.leads);
   const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const dispatch = useDispatch();
   const leadId = singleLeadItem.leadId;
   const [notes, setNotes] = useState("");
 
-  // console.log(singleLeadItem);
   console.log(useSelector((state) => state));
   useEffect(() => {
     dispatch(getAllLeads());
@@ -147,252 +142,282 @@ export const Home = (props) => {
     dispatch(updateLeadClose(update));
   };
 
-  return (
-    <Layout>
-      <div className="home" style={{ borderTop: "1px solid #efefef" }}>
-        <div>
-          <Row className="leads">
-            <h4 className="text-muted mt-1">Leads assigned to you</h4>
-            <Col className="scroller table-container">
-              <Table striped bordered hover size="sm" className="table">
-                <thead className="table-head">
-                  <tr>
-                    <th>Lead ID</th>
-                    <th>Date</th>
-                    <th>Business</th>
-                    <th>Industy</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Service</th>
-                    <th>Sub Type</th>
-                    <th>Region</th>
-                    <th>created_By</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>{renderLeads(leads.leads)}</tbody>
-              </Table>
-            </Col>
+  if (userAccess !== "sales") {
+    return (
+      <Layout>
+        <div className="home" style={{ borderTop: "1px solid #efefef" }}>
+          <Row style={{ marginTop: "100px" }}>
             <Col
-              className=""
-              style={{
-                marginLeft: "10px",
-              }}
+              className="alert alert-success col-8 "
+              role="alert"
+              style={{ margin: "auto", top: "50%" }}
             >
-              <Row className="mb-3">
-                <Col className="col-10 text-muted">
-                  <p
-                    className="mb-0"
-                    style={{
-                      float: "right",
-                    }}
-                  >
-                    Search for leads:
-                  </p>
-                </Col>
-                <Col className="col-1">
-                  <a
-                    href="/search"
-                    className="btn-sm"
-                    variant="success"
-                    type="btn"
-                    style={{
-                      border: "1px solid rgb(194, 189, 189)",
-                      background: "green",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <i className="bi bi-search text-white ms-2"></i>
-                  </a>
-                </Col>
-              </Row>
-              <Row
-                style={{
-                  borderTop: "1px solid rgb(194, 189, 189)",
-                  borderBottom: "1px solid rgb(194, 189, 189)",
-                }}
-              >
-                <h5 className="text-muted mt-2 mb-2">Summary</h5>
-                <Col className="summaries">
-                  <p className="summary-figure text-info">
-                    {totalLeadsCount(leads.leads)}
-                  </p>
-                  <p className="summary-title">Total Leads</p>
-                </Col>
-                <Col className="summaries">
-                  <p className="summary-figure text-warning">
-                    {assignedLeadsCount(leads.leads)}
-                  </p>
-                  <p className="summary-title">Assigned Leads</p>
-                </Col>
-                <Col className="summaries">
-                  <p className="summary-figure text-success">
-                    {closedLeadsCount(leads.leads)}
-                  </p>
-                  <p className="summary-title">Closed Leads</p>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row className="leads-details">
-            <Col style={{ marginLeft: "10px" }}>
-              <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
-              <Row>
-                <Form>
-                  <Row>
-                    <Col>
-                      <HomeInput
-                        label="Lead Id"
-                        type="text"
-                        value={leadId}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Business"
-                        type="text"
-                        value={singleLeadItem.business_name}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Industry"
-                        type="text"
-                        value={singleLeadItem.industry}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Contact Person"
-                        type="text"
-                        value={singleLeadItem.contact_person}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Email"
-                        type="email"
-                        value={singleLeadItem.contact_email}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Phone"
-                        type="text"
-                        value={singleLeadItem.contact_number}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Region"
-                        type="text"
-                        value={singleLeadItem.region}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Created by"
-                        type="text"
-                        value={singleLeadItem.created_by}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Department"
-                        type="text"
-                        value={singleLeadItem.creator_department}
-                        onChange={(e) => {}}
-                        required
-                      />
-                    </Col>
-                    <Col>
-                      <HomeInput
-                        label="Service"
-                        type="text"
-                        value={singleLeadItem.service_type}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Sub-Type"
-                        type="text"
-                        value={singleLeadItem.service_subtype}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Status"
-                        type="text"
-                        value={singleLeadItem.status}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Assigned to"
-                        value={singleLeadItem.sales_person}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Notes"
-                        as="textarea"
-                        row="5"
-                        type="text"
-                        value={singleLeadItem.notes}
-                        onChange={(e) => {}}
-                        required
-                      />
-                      <HomeInput
-                        label="Close Remarks"
-                        as="textarea"
-                        row="3"
-                        type="text"
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        required
-                      />
-                    </Col>
-                  </Row>
-                  <Button
-                    className="btn-sm"
-                    variant="success"
-                    type="submit"
-                    style={{ width: "160px" }}
-                    onClick={updateLead}
-                  >
-                    Close Lead
-                  </Button>
-                </Form>
-              </Row>
-            </Col>
-            <Col className="scroller table-container-closed">
-              <h5 className="text-muted mt-2 mb-3">Your Closed Deals</h5>
-              <Table striped bordered hover size="sm" className="table">
-                <thead className="table-head">
-                  <tr>
-                    <th>Lead ID</th>
-                    <th>Date</th>
-                    <th>Business</th>
-                    <th>Industy</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Service</th>
-                    <th>Sub Type</th>
-                    <th>Region</th>
-                    <th>created_By</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>{renderClosedLeads(leads.leads)}</tbody>
-              </Table>
+              <h4 class="alert-heading">Sales Workplace Alert!</h4>
+              <p>
+                Only users with access matrix sales team can view and access the
+                contents of this page.
+              </p>
+              <hr />
+              <p class="mb-0">
+                If you are a sales person and cannot access the page please get
+                in touch with your system administrator.
+              </p>
             </Col>
           </Row>
         </div>
-      </div>
-    </Layout>
-  );
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout>
+        <div className="home" style={{ borderTop: "1px solid #efefef" }}>
+          <div>
+            <Row className="leads">
+              <h4 className="text-muted mt-1">Leads assigned to you:</h4>
+              <p className="mt-0 mb-0 text-success">
+                Select lead ID to populate form below for actioning.
+              </p>
+              <Col className="scroller table-container">
+                <Table striped bordered hover size="sm" className="table">
+                  <thead className="table-head">
+                    <tr>
+                      <th>Lead ID</th>
+                      <th>Date</th>
+                      <th>Business</th>
+                      <th>Industy</th>
+                      <th>Contact</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Service</th>
+                      <th>Sub Type</th>
+                      <th>Region</th>
+                      <th>created_By</th>
+                      <th>Department</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderLeads(leads.leads)}</tbody>
+                </Table>
+              </Col>
+              <Col
+                className=""
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                <Row className="mb-3">
+                  <Col className="col-10 text-muted">
+                    <p
+                      className="mb-0"
+                      style={{
+                        float: "right",
+                      }}
+                    >
+                      Search for leads:
+                    </p>
+                  </Col>
+                  <Col className="col-1">
+                    <a
+                      href="/search"
+                      className="btn-sm"
+                      variant="success"
+                      type="btn"
+                      style={{
+                        border: "1px solid rgb(194, 189, 189)",
+                        background: "green",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <i className="bi bi-search text-white ms-2"></i>
+                    </a>
+                  </Col>
+                </Row>
+                <Row
+                  style={{
+                    borderTop: "1px solid rgb(194, 189, 189)",
+                    borderBottom: "1px solid rgb(194, 189, 189)",
+                  }}
+                >
+                  <h5 className="text-muted mt-2 mb-2">Summary</h5>
+                  <Col className="summaries">
+                    <p className="summary-figure text-info">
+                      {totalLeadsCount(leads.leads)}
+                    </p>
+                    <p className="summary-title">Total Leads</p>
+                  </Col>
+                  <Col className="summaries">
+                    <p className="summary-figure text-warning">
+                      {assignedLeadsCount(leads.leads)}
+                    </p>
+                    <p className="summary-title">Assigned Leads</p>
+                  </Col>
+                  <Col className="summaries">
+                    <p className="summary-figure text-success">
+                      {closedLeadsCount(leads.leads)}
+                    </p>
+                    <p className="summary-title">Closed Leads</p>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row className="leads-details">
+              <Col style={{ marginLeft: "10px" }}>
+                <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
+                <Row>
+                  <Form>
+                    <Row>
+                      <Col>
+                        <HomeInput
+                          label="Lead Id"
+                          type="text"
+                          value={leadId}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Business"
+                          type="text"
+                          value={singleLeadItem.business_name}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Industry"
+                          type="text"
+                          value={singleLeadItem.industry}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Contact Person"
+                          type="text"
+                          value={singleLeadItem.contact_person}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Email"
+                          type="email"
+                          value={singleLeadItem.contact_email}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Phone"
+                          type="text"
+                          value={singleLeadItem.contact_number}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Region"
+                          type="text"
+                          value={singleLeadItem.region}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Created by"
+                          type="text"
+                          value={singleLeadItem.created_by}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Department"
+                          type="text"
+                          value={singleLeadItem.creator_department}
+                          onChange={(e) => {}}
+                          required
+                        />
+                      </Col>
+                      <Col>
+                        <HomeInput
+                          label="Service"
+                          type="text"
+                          value={singleLeadItem.service_type}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Sub-Type"
+                          type="text"
+                          value={singleLeadItem.service_subtype}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Status"
+                          type="text"
+                          value={singleLeadItem.status}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Assigned to"
+                          value={singleLeadItem.sales_person}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Notes"
+                          as="textarea"
+                          row="5"
+                          type="text"
+                          value={singleLeadItem.notes}
+                          onChange={(e) => {}}
+                          required
+                        />
+                        <HomeInput
+                          label="Close Remarks"
+                          as="textarea"
+                          row="3"
+                          type="text"
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          required
+                        />
+                      </Col>
+                    </Row>
+                    <Button
+                      className="btn-sm"
+                      variant="success"
+                      type="submit"
+                      style={{ width: "160px" }}
+                      onClick={updateLead}
+                    >
+                      Close Lead
+                    </Button>
+                  </Form>
+                </Row>
+              </Col>
+              <Col className="scroller table-container-closed">
+                <h5 className="text-muted mt-2 mb-3">Your Closed Deals</h5>
+                <Table striped bordered hover size="sm" className="table">
+                  <thead className="table-head">
+                    <tr>
+                      <th>Lead ID</th>
+                      <th>Date</th>
+                      <th>Business</th>
+                      <th>Industy</th>
+                      <th>Contact</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Service</th>
+                      <th>Sub Type</th>
+                      <th>Region</th>
+                      <th>created_By</th>
+                      <th>Department</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderClosedLeads(leads.leads)}</tbody>
+                </Table>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 };

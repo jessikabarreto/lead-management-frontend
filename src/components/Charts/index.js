@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import { getAllLeads, productTotal } from "../../actions";
+import React, { Component, useEffect } from "react";
+import { getAllLeads } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import FusionCharts from "fusioncharts";
 import Charts from "fusioncharts/fusioncharts.charts";
@@ -355,7 +355,6 @@ export class DateChart extends Component {
 export const GetSsubData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
-  const [refreshInterval, setRefreshInterval] = useState(true);
 
   useEffect(() => {
     dispatch(getAllLeads());

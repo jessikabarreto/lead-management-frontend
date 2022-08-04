@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Form, Button, Row, Col, Alert } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { addLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
@@ -88,6 +88,33 @@ export const LeadCapture = (props) => {
         <h1 style={{ marginLeft: "40px", marginTop: "60px", color: "gray" }}>
           Leads Capture
         </h1>
+        <Row className="mb-3">
+          <Col className="col-10 text-muted">
+            <p
+              className="mb-0"
+              style={{
+                float: "right",
+              }}
+            >
+              Search for leads:
+            </p>
+          </Col>
+          <Col className="col-1">
+            <a
+              href="/search"
+              className="btn-sm"
+              variant="success"
+              type="btn"
+              style={{
+                border: "1px solid rgb(194, 189, 189)",
+                background: "green",
+                borderRadius: "5px",
+              }}
+            >
+              <i className="bi bi-search text-white ms-2"></i>
+            </a>
+          </Col>
+        </Row>
         <div
           style={{
             borderTop: "1px solid #efefef",

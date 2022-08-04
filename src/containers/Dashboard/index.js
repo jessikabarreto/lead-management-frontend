@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "../../components/Layout";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import {
   ClipboardX,
   Folder2Open,
@@ -23,8 +23,6 @@ import {
   DisqualifyPercent,
 } from "../../components/Logic/Dashboard";
 import PerformanceCharts from "../Charts";
-import { hot } from "react-hot-loader";
-import { GetData } from "../../components/Charts";
 
 /**
  * @author
@@ -85,7 +83,6 @@ export const Dashboard = (props) => {
             margin: "10px 20px 0px 20px",
           }}
         >
-          <GetData />
           <PerformanceCharts />
         </div>
       </div>

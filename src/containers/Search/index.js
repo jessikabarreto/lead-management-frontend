@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Layout } from "../../components/Layout";
 import { Row, Col, Button, Table, Form } from "react-bootstrap";
@@ -18,7 +18,6 @@ export const Search = (props) => {
   const [service_type, setServiceType] = useState("");
   const [createdAt, setDate] = useState("");
   const [createdBf, setAnotherDate] = useState("");
-  const state = useSelector((state) => state);
 
   const searchLeads = (e) => {
     e.preventDefault();

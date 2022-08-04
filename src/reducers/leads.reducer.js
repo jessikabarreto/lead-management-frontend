@@ -18,6 +18,10 @@ const productinitState = {
   productTotals: [],
 };
 
+const searchState = {
+  leadsSearched: [],
+};
+
 export const leadsReducer = (state = initState, action) => {
   switch (action.type) {
     case leadConstants.GET_ALL_LEADS_SUCCESS:
@@ -60,6 +64,18 @@ export const productTotalsReducer = (state = productinitState, action) => {
       state = {
         ...state,
         productTotals: action.payload.productTotals,
+      };
+      break;
+  }
+  return state;
+};
+
+export const leadsSearchedReducer = (state = searchState, action) => {
+  switch (action.type) {
+    case leadConstants.GET_SEARCH_LEADS_SUCCESS:
+      state = {
+        ...state,
+        leadsSearched: action.payload.leadsSearched,
       };
       break;
   }

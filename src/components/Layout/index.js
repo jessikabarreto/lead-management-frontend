@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { SideNav } from "../../components/SideNav";
+import {
+  GetData,
+  GetDateData,
+  GetRegionData,
+  GetSsubData,
+  GetStatusData,
+} from "../Charts";
 
 /**
  * @author
@@ -21,6 +28,11 @@ export const Layout = (props) => {
       <Header></Header>
       <i className="bi bi-three-dots" onClick={openSidenav}></i>
       <SideNav width={wid} closeNav={closeSidenav} />
+      <GetData />
+      <GetDateData />
+      <GetRegionData />
+      <GetSsubData />
+      <GetStatusData />
       {props.children}
       <Footer></Footer>
     </div>

@@ -12,7 +12,8 @@ import { Administration } from "./containers/Administration";
 import { LeadCapture } from "./containers/LeadCapture";
 import { LeadTracker } from "./containers/LeadTracker";
 import { Dashboard } from "./containers/Dashboard";
-import { Search } from "./containers/Sesrch";
+import { Search } from "./containers/Search";
+import { GetData, GetDateData } from "./components/Charts";
 
 function App() {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { getAllLeads, productTotal } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import FusionCharts from "fusioncharts";
@@ -8,7 +8,7 @@ import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const GetData = () => {
+export const GetData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
 
@@ -97,7 +97,7 @@ export class Chart extends Component {
 
 //----------------------------------------------Regions -----------------------------------
 
-const GetRegionData = () => {
+export const GetRegionData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
 
@@ -181,7 +181,7 @@ export class RegionChart extends Component {
 
 //----------------------------------------------Status -----------------------------------
 
-const GetStatusData = () => {
+export const GetStatusData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
 
@@ -266,7 +266,7 @@ export class StatusChart extends Component {
 
 //----------------------------------------------Date -----------------------------------
 
-const GetDateData = () => {
+export const GetDateData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
 
@@ -352,9 +352,10 @@ export class DateChart extends Component {
 
 //----------------------------------------------SubType -----------------------------------
 
-const GetSsubData = () => {
+export const GetSsubData = () => {
   const leads = useSelector((state) => state.leads);
   const dispatch = useDispatch();
+  const [refreshInterval, setRefreshInterval] = useState(true);
 
   useEffect(() => {
     dispatch(getAllLeads());

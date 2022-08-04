@@ -155,3 +155,27 @@ export const productTotal = () => {
     }
   };
 };
+
+export const getSearchLeads = (form) => {
+  return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_SEARCH_LEADS_REQUEST });
+    const res = await axios.get("profile/leads/search", {
+      params: form,
+    });
+    console.log(res);
+    if (res.status === 200) {
+      const leadsSearched = res.data;
+      dispatch({
+        type: leadConstants.GET_SEARCH_LEADS_SUCCESS,
+        payload: { leadsSearched: leadsSearched },
+      });
+    } else {
+      dispatch({
+        type: leadConstants.GET_SEARCH_LEADS_FAILURE,
+        payload: {
+          error: res.data.error,
+        },
+      });
+    }
+  };
+};

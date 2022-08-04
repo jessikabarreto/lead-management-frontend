@@ -10,13 +10,7 @@ import {
 } from "react-bootstrap-icons";
 import "../../assets/css/Dashboard.css";
 import { StatCard } from "../../components/UI/StatCards";
-import {
-  Chart,
-  RegionChart,
-  StatusChart,
-  DateChart,
-  ServiceSubChart,
-} from "../../components/Charts";
+
 import {
   TotalLeadsCount,
   OpenLeadsCount,
@@ -28,6 +22,9 @@ import {
   DisqualifyLeadsCount,
   DisqualifyPercent,
 } from "../../components/Logic/Dashboard";
+import PerformanceCharts from "../Charts";
+import { hot } from "react-hot-loader";
+import { GetData } from "../../components/Charts";
 
 /**
  * @author
@@ -82,36 +79,14 @@ export const Dashboard = (props) => {
             icon={<ClipboardX className="m-0" color="white" size={30} />}
           />
         </Row>
-
         <div
           style={{
             borderTop: "1px solid #efefef",
             margin: "10px 20px 0px 20px",
           }}
         >
-          <Row className="mt-3">
-            <Col className="mb-3 col-7">
-              <Row>
-                <Col className="mb-3 col-5">
-                  <Chart />
-                </Col>
-                <Col className="mb-3 ms-5 col-5">
-                  <RegionChart />
-                </Col>
-              </Row>
-            </Col>
-            <Col className="mb-3 col-5">
-              <StatusChart />
-            </Col>
-          </Row>
-          <Row className="mt-3">
-            <Col className="m-3">
-              <ServiceSubChart />
-            </Col>
-            <Col className="m-3">
-              <DateChart />
-            </Col>
-          </Row>
+          <GetData />
+          <PerformanceCharts />
         </div>
       </div>
     </Layout>

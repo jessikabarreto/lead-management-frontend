@@ -25,7 +25,7 @@ export const SideNav = (props) => {
         <Rule color="gray" />
         <a href="/">
           <i className="bi bi-house-fill"></i>
-          Home
+          Sales Workspace
         </a>
         <a href="/leadcapture">
           <i className="bi bi-menu-button-wide-fill"></i>

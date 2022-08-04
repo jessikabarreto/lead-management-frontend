@@ -4,6 +4,7 @@ import {
   singleLeadReducer,
   leadUserReducer,
   productTotalsReducer,
+  leadsSearchedReducer,
 } from "./leads.reducer";
 import { combineReducers } from "redux";
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   singleLead: singleLeadReducer,
   leadUsers: leadUserReducer,
   productTotals: productTotalsReducer,
+  leadsSearched: leadsSearchedReducer,
 });
 
 export default rootReducer;

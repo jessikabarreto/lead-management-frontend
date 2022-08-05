@@ -162,7 +162,7 @@ export const getSearchLeads = (form) => {
     const res = await axios.get("profile/leads/search", {
       params: form,
     });
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       const leadsSearched = res.data;
       dispatch({

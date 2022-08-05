@@ -13,7 +13,7 @@ import { LeadCapture } from "./containers/LeadCapture";
 import { LeadTracker } from "./containers/LeadTracker";
 import { Dashboard } from "./containers/Dashboard";
 import { Search } from "./containers/Search";
-import { GetData, GetDateData } from "./components/Charts";
+import { NoPageFound } from "./containers/NoPageFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,18 +31,18 @@ function App() {
       <React.Fragment>
         <Routes>
           <Route
-            path="/leadtracker"
-            element={
-              <PrivateRoute>
-                <LeadTracker />
-              </PrivateRoute>
-            }
-          />
-          <Route
             path="/"
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
               </PrivateRoute>
             }
           />
@@ -55,7 +55,7 @@ function App() {
             }
           />
           <Route
-            path="/leadcapture"
+            path="/leadcapture/"
             element={
               <PrivateRoute>
                 <LeadCapture />
@@ -70,8 +70,8 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<NoPageFound />} />
           <Route path="/signin/" element={<Signin />} />
-          <Route path="/register/" element={<Register />} />
         </Routes>
       </React.Fragment>
     );
@@ -119,8 +119,8 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<NoPageFound />} />
           <Route path="/signin/" element={<Signin />} />
-          <Route path="/register/" element={<Register />} />
         </Routes>
       </React.Fragment>
     );
@@ -176,12 +176,20 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/register"
+            element={
+              <PrivateRoute>
+                <Register />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NoPageFound />} />
           <Route path="/signin/" element={<Signin />} />
-          <Route path="/register/" element={<Register />} />
         </Routes>
       </React.Fragment>
     );
-  } else {
+  } else if (userAccess === "user") {
     return (
       <React.Fragment>
         <Routes>
@@ -217,8 +225,73 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<NoPageFound />} />
           <Route path="/signin/" element={<Signin />} />
-          <Route path="/register/" element={<Register />} />
+        </Routes>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/administration"
+            element={
+              <PrivateRoute>
+                <Administration />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadtracker"
+            element={
+              <PrivateRoute>
+                <LeadTracker />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/leadcapture"
+            element={
+              <PrivateRoute>
+                <LeadCapture />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PrivateRoute>
+                <Register />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NoPageFound />} />
+          <Route path="/signin/" element={<Signin />} />
         </Routes>
       </React.Fragment>
     );

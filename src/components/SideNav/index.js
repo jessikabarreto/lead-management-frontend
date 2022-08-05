@@ -137,6 +137,10 @@ export const SideNav = (props) => {
             <i className="bi bi-clipboard-data"></i>
             Dashboard
           </a>
+          <a href="/register">
+            <i className="bi bi-person-plus-fill"></i>
+            Register New User
+          </a>
         </div>
         <div className="sidenav sidenav-i" style={{ width: props.width }}>
           <a href="#section" className="closebtn" onClick={props.closeNav}>
@@ -158,10 +162,13 @@ export const SideNav = (props) => {
           <a href="/dashboard">
             <i className="bi bi-clipboard-data"></i>
           </a>
+          <a href="/register">
+            <i className="bi bi-person-plus-fill"></i>
+          </a>
         </div>
       </>
     );
-  } else {
+  } else if (userAccess === "user") {
     return (
       <>
         <div className="sidenav sidenav-a" style={{ width: props.width }}>

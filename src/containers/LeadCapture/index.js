@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { addLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import "../../assets/css/LeadCapture.css";
+import { getAllLeads } from "../../actions";
 
 /**
  * @author
@@ -14,6 +15,7 @@ import "../../assets/css/LeadCapture.css";
 
 export const LeadCapture = (props) => {
   const auth = useSelector((state) => state.auth);
+  const leads = useSelector((state) => state.leads);
   const _id = auth.user._id;
   const dispatch = useDispatch();
   const [business_name, setBusinessName] = useState("");
@@ -25,6 +27,18 @@ export const LeadCapture = (props) => {
   const [service_subtype, setSubType] = useState("");
   const [region, setRegion] = useState("");
   const [notes, setNotes] = useState("");
+
+  // console.log(useSelector((state) => state));
+  const latestLead = leads.leads[leads.leads.length - 1];
+  if (latestLead === undefined) {
+    console.log("test");
+  } else {
+    console.log(latestLead.leadId);
+  }
+
+  useEffect(() => {
+    dispatch(getAllLeads());
+  }, []);
 
   const createLead = (e) => {
     e.preventDefault();

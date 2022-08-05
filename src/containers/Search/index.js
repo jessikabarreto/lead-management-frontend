@@ -16,8 +16,9 @@ export const Search = (props) => {
   const [region, setRegion] = useState("");
   const [status, setStatus] = useState("");
   const [service_type, setServiceType] = useState("");
-  const [createdAt, setDate] = useState("");
-  const [createdBf, setAnotherDate] = useState("");
+  const [fromDate, setDate] = useState("");
+  const [toDate, setAnotherDate] = useState("");
+  const [created_by, setCreatedBy] = useState("");
 
   const searchLeads = (e) => {
     e.preventDefault();
@@ -25,15 +26,19 @@ export const Search = (props) => {
     form.append("region", region);
     form.append("status", status);
     form.append("service_type", service_type);
-    form.append("createdAt", createdAt);
-    form.append("createdBf", createdBf);
+    form.append("fromDate", fromDate);
+    form.append("toDate", toDate);
+    form.append("created_by", created_by);
+
+    console.log(form);
 
     const update = {
       region,
       status,
       service_type,
-      createdAt,
-      createdBf,
+      fromDate,
+      toDate,
+      created_by,
     };
     dispatch(getSearchLeads(update));
   };
@@ -90,7 +95,8 @@ export const Search = (props) => {
                         <HomeInput
                           label="From"
                           type="date"
-                          value={createdAt}
+                          value={fromDate}
+                          required
                           onChange={(e) => setDate(e.target.value)}
                         />
                       </Col>
@@ -98,7 +104,8 @@ export const Search = (props) => {
                         <HomeInput
                           label="To"
                           type="date"
-                          value={createdBf}
+                          value={toDate}
+                          required
                           onChange={(e) => setAnotherDate(e.target.value)}
                         />
                       </Col>
@@ -122,6 +129,12 @@ export const Search = (props) => {
                       value={status}
                       onChange={(e) => setStatus(e.target.value)}
                     />
+                    <HomeInput
+                      label="Created By"
+                      type="text"
+                      value={created_by}
+                      onChange={(e) => setCreatedBy(e.target.value)}
+                    />
                     <Button
                       className="btn-sm"
                       variant="success"
@@ -135,7 +148,7 @@ export const Search = (props) => {
                     <Row className=" me-0 mt-1" style={{ fontSize: "11px" }}>
                       <span className="text-danger">
                         *Date Selection is mandatory the rest of the fields are
-                        optional
+                        optional and you can do partial word search.
                       </span>
                     </Row>
                   </Col>

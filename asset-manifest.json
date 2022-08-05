@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/lead-mngt-frtnd/static/css/main.7f4b8bcc.css",
+    "main.js": "/lead-mngt-frtnd/static/js/main.edfdb7b3.js",
+    "static/js/787.99d6dfde.chunk.js": "/lead-mngt-frtnd/static/js/787.99d6dfde.chunk.js",
+    "static/media/landing_page_image.png": "/lead-mngt-frtnd/static/media/landing_page_image.4e98c0b8d162402ec5a3.png",
+    "static/media/bootstrap-icons.woff?": "/lead-mngt-frtnd/static/media/bootstrap-icons.c1d7432ee75fa194e499.woff",
+    "static/media/bootstrap-icons.woff2?": "/lead-mngt-frtnd/static/media/bootstrap-icons.a13b815539b49de48d23.woff2",
+    "static/media/safaricom-Logo.png": "/lead-mngt-frtnd/static/media/safaricom-Logo.5fcab0dceb02cbd099c8.png",
+    "index.html": "/lead-mngt-frtnd/index.html",
+    "main.7f4b8bcc.css.map": "/lead-mngt-frtnd/static/css/main.7f4b8bcc.css.map",
+    "main.edfdb7b3.js.map": "/lead-mngt-frtnd/static/js/main.edfdb7b3.js.map",
+    "787.99d6dfde.chunk.js.map": "/lead-mngt-frtnd/static/js/787.99d6dfde.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f4b8bcc.css",
+    "static/js/main.edfdb7b3.js"
+  ]
+}

@@ -28,7 +28,7 @@ export const addLead = (form) => {
     const res = await axios
       .post("/profile/create-lead", form)
       .then((response) => {
-        console.log(response);
+        console.log("Done");
       })
       .catch(function (error) {
         console.log(error);
@@ -65,7 +65,7 @@ export const updateLeadClose = (form) => {
     const res = await axios
       .post("/profile/update-lead/close", form)
       .then((response) => {
-        console.log(response);
+        console.log("Done");
       })
       .catch(function (error) {
         console.log(error);
@@ -126,7 +126,7 @@ export const updateAssignLead = (form) => {
     const res = await axios
       .post("/profile/update-lead/assign", form)
       .then((response) => {
-        console.log(response);
+        console.log("Done");
       })
       .catch(function (error) {
         console.log(error);

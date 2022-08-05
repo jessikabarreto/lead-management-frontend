@@ -60,3 +60,16 @@ export const logout = () => {
     }
   };
 };
+
+export const userRegister = (form) => {
+  return async (dispatch) => {
+    const res = await axios
+      .post("/register", form)
+      .then((response) => {
+        console.log("Done");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};

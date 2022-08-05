@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Input } from "../../components/UI/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { userRegister } from "../../actions";
 
 /**
  * @author
@@ -9,6 +11,75 @@ import { Input } from "../../components/UI/Input";
  **/
 
 export const Register = (props) => {
+  const dispatch = useDispatch();
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [ekno, setEkNo] = useState("");
+  const [division, setDivision] = useState("");
+  const [department, setDepartment] = useState("");
+  const [role, setRole] = useState("");
+  const [region, setRegion] = useState("");
+  const [access, setAccess] = useState("");
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("firstname", firstname);
+    form.append("lastname", lastname);
+    form.append("email", email);
+    form.append("password", password);
+    form.append("ekno", ekno);
+    form.append("division", division);
+    form.append("department", department);
+    form.append("role", role);
+    form.append("region", region);
+    form.append("access", access);
+
+    const update = {
+      firstname,
+      lastname,
+      email,
+      password,
+      ekno,
+      division,
+      department,
+      role,
+      region,
+      access,
+    };
+    if (
+      !update.firstname ||
+      !update.lastname ||
+      !update.email ||
+      !update.password ||
+      !update.ekno ||
+      !update.division ||
+      !update.department ||
+      !update.role ||
+      !update.region ||
+      !update.access
+    ) {
+      document.getElementById("msg").innerHTML = "Please fill all fields";
+      document.getElementById("msg").classList.add("error");
+    } else {
+      dispatch(userRegister(update));
+      document.getElementById("msg").innerHTML = "Lead successfully created";
+      document.getElementById("msg").classList.add("success");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setEkNo("");
+      setDivision("");
+      setDepartment("");
+      setRole("");
+      setRegion("");
+      setAccess("");
+    }
+  };
+
   return (
     <Layout>
       <div
@@ -53,92 +124,99 @@ export const Register = (props) => {
               <Row>
                 <Col>
                   <Input
-                    id=""
                     placeholder="First Name"
                     type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={firstname}
+                    required
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </Col>
                 <Col>
                   <Input
-                    id=""
                     placeholder="Last Name"
                     type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={lastname}
+                    required
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </Col>
               </Row>
               <Input
-                id=""
                 placeholder="Enter email"
                 type="text"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 class=""
-                id="formBasicPassword"
                 placeholder="Password"
                 type="password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
               />
               <Row>
                 <Col md={4}>
                   <Input
-                    id=""
                     placeholder="Staff ID"
                     type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={ekno}
+                    required
+                    onChange={(e) => setEkNo(e.target.value)}
                   />
                 </Col>
                 <Col>
                   <Input
-                    id=""
                     placeholder="Division"
                     type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={division}
+                    required
+                    onChange={(e) => setDivision(e.target.value)}
                   />
                 </Col>
               </Row>
               <Input
                 class=""
-                id=""
                 placeholder="Department"
-                type="password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                type="text"
+                value={department}
+                required
+                onChange={(e) => setDepartment(e.target.value)}
               />
               <Input
-                class=""
-                id=""
+                class="mb-3"
                 placeholder="Role"
-                type="password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                type="text"
+                value={role}
+                required
+                onChange={(e) => setRole(e.target.value)}
               />
               <Row>
-                <Col className="mb-3">
-                  <Input
-                    id=""
-                    placeholder="Region"
-                    type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
-                  />
+                <Col>
+                  <Form.Select
+                    aria-label="Default select example"
+                    className="mb-4 form"
+                    style={{ fontSize: "12px" }}
+                    value={region}
+                    onChange={(e) => setRegion(e.target.value)}
+                    required
+                  >
+                    <option>Select Region</option>
+                    <option value="NAIROBI">NAIROBI</option>
+                    <option value="MOUNTAIN">MOUNTAIN</option>
+                    <option value="COAST">COAST</option>
+                    <option value="RIFT">RIFT</option>
+                    <option value="GREATER WESTERN">GREATER WESTERN</option>
+                  </Form.Select>
                 </Col>
                 <Col>
                   <Form.Select
                     aria-label="Default select example"
-                    className=" mt-4 form"
-                    id=""
+                    className=" mb-4 form"
                     style={{ fontSize: "12px" }}
-                    // value={region}
-                    // onChange={(e) => setRegion(e.target.value)}
+                    value={access}
+                    onChange={(e) => setAccess(e.target.value)}
                     required
                   >
                     <option>Select Acces Type</option>
@@ -148,10 +226,16 @@ export const Register = (props) => {
                   </Form.Select>
                 </Col>
               </Row>
-              <Button className="mb-3" variant="success" type="submit">
+              <Button
+                className="mb-3"
+                variant="success"
+                type="submit"
+                onClick={registerUser}
+              >
                 Register
               </Button>
             </Form>
+            <p className="mt-3 text-center" id="msg"></p>
             {/* <p value={error} onChange={(e) => setError(e.target.value)}></p> */}
           </Col>
         </Row>

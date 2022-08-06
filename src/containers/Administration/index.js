@@ -23,8 +23,6 @@ export const Administration = (props) => {
   const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const assignSale = useSelector((state) => state.leadUsers);
   const dispatch = useDispatch();
-  const userDetails = auth.user;
-  const userAccess = auth.user.access;
   const _id = auth.user._id;
   const leadId = singleLeadItem.leadId;
   const [notes, setNotes] = useState("");
@@ -141,7 +139,7 @@ export const Administration = (props) => {
             <td>{lead.status}</td>
             <td>
               <a
-                href=""
+                href="#"
                 onClick={(e) => {
                   e.preventDefault();
                   dispatch(getSingleLead(getLeadId(lead.leadId)));

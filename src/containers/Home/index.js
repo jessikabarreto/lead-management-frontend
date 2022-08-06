@@ -16,16 +16,11 @@ export const Home = (props) => {
   const auth = useSelector((state) => state.auth);
   const userName = auth.user.fullname;
   const _id = auth.user._id;
-  const userAccess = auth.user.access;
   const leads = useSelector((state) => state.leads);
   const singleLeadItem = useSelector((state) => state.singleLead.singleLead);
   const dispatch = useDispatch();
   const leadId = singleLeadItem.leadId;
   const [notes, setNotes] = useState("");
-
-  // console.log(useSelector((state) => state));
-  // const latestLead = leads.leads[leads.leads.length - 1];
-  // console.log(latestLead.leadId);
 
   useEffect(() => {
     dispatch(getAllLeads());
@@ -39,7 +34,7 @@ export const Home = (props) => {
           <tr key={lead._id}>
             <td>
               <a
-                href=""
+                href="#"
                 id="lead"
                 onClick={(e) => {
                   e.preventDefault();

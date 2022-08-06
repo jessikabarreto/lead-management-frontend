@@ -1,12 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { addLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import "../../assets/css/LeadCapture.css";
-import { getAllLeads } from "../../actions";
 
 /**
  * @author

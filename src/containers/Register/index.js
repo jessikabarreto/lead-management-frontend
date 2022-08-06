@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Input } from "../../components/UI/Input";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userRegister } from "../../actions";
 
 /**

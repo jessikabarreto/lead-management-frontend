@@ -30,6 +30,7 @@ export const leadsReducer = (state = initState, action) => {
         leads: action.payload.leads,
       };
       break;
+    default:
   }
   return state;
 };
@@ -42,6 +43,7 @@ export const singleLeadReducer = (state = singleinitState, action) => {
         singleLead: action.payload.singleLead,
       };
       break;
+    default:
   }
   return state;
 };
@@ -54,6 +56,7 @@ export const leadUserReducer = (state = leadUsersinitState, action) => {
         leadUsers: action.payload.leadUsers,
       };
       break;
+    default:
   }
   return state;
 };
@@ -66,6 +69,7 @@ export const productTotalsReducer = (state = productinitState, action) => {
         productTotals: action.payload.productTotals,
       };
       break;
+    default:
   }
   return state;
 };
@@ -78,6 +82,7 @@ export const leadsSearchedReducer = (state = searchState, action) => {
         leadsSearched: action.payload.leadsSearched,
       };
       break;
+    default:
   }
   return state;
 };

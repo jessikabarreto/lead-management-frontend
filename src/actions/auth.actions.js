@@ -71,5 +71,6 @@ export const userRegister = (form) => {
       .catch(function (error) {
         console.log(error);
       });
+    console.log(res);
   };
 };

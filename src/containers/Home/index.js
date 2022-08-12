@@ -24,7 +24,7 @@ export const Home = (props) => {
 
   useEffect(() => {
     dispatch(getAllLeads());
-  }, []);
+  }, [getAllLeads]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderLeads = (leads) => {
     let leadItem = [];
@@ -33,8 +33,8 @@ export const Home = (props) => {
         leadItem.push(
           <tr key={lead._id}>
             <td>
-              <a
-                href="#"
+              <p
+                className="home-edit"
                 id="lead"
                 onClick={(e) => {
                   e.preventDefault();
@@ -42,7 +42,7 @@ export const Home = (props) => {
                 }}
               >
                 {lead.leadId}
-              </a>
+              </p>
             </td>
             <td>{lead.createdAt.substring(0, 10)}</td>
             <td>{lead.business_name}</td>
@@ -140,6 +140,10 @@ export const Home = (props) => {
     dispatch(updateLeadClose(update));
   };
 
+  // const reload = (e) => {
+  //   window.location.reload(false);
+  // };
+
   return (
     <Layout>
       <div className="home" style={{ borderTop: "1px solid #efefef" }}>
@@ -236,7 +240,7 @@ export const Home = (props) => {
             <Col style={{ marginLeft: "10px" }}>
               <h5 className="text-muted mt-2 mb-3">Selected Lead details</h5>
               <Row>
-                <Form>
+                <Form id="myForm">
                   <Row>
                     <Col>
                       <HomeInput
@@ -356,7 +360,10 @@ export const Home = (props) => {
                     variant="success"
                     type="submit"
                     style={{ width: "160px" }}
-                    onClick={updateLead}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      updateLead();
+                    }}
                   >
                     Close Lead
                   </Button>

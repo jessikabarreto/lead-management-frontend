@@ -64,7 +64,7 @@ export const Administration = (props) => {
 
   useEffect(() => {
     dispatch(getAllLeads());
-  }, []);
+  }, [getAllLeads]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getLeadId = (item) => {
     const leadPair = {};
@@ -138,8 +138,8 @@ export const Administration = (props) => {
             <td>{lead.creator_department}</td>
             <td>{lead.status}</td>
             <td>
-              <a
-                href="#"
+              <p
+                className="admin-edit"
                 onClick={(e) => {
                   e.preventDefault();
                   dispatch(getSingleLead(getLeadId(lead.leadId)));
@@ -147,7 +147,7 @@ export const Administration = (props) => {
                 }}
               >
                 <PencilSquare />
-              </a>
+              </p>
             </td>
           </tr>
         );
@@ -397,7 +397,7 @@ export const Administration = (props) => {
                   <Button
                     className="btn-sm"
                     variant="success"
-                    type="submit"
+                    type="button"
                     style={{ width: "160px" }}
                     onClick={updateLead}
                   >

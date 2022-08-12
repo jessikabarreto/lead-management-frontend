@@ -46,7 +46,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "plugins": ["react-hooks"],
+  "rules": {
+    "react-hooks/exhaustive-deps": 0
+    }
   },
   "browserslist": {
     "production": [
@@ -63,6 +67,15 @@
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
+    "@imaginary-cloud/eslint-config-react": "^2.0.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.0.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "react-hot-loader": "^4.13.0"
   }
 }

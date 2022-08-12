@@ -51,3 +51,8 @@ table {
 .test{
   color: #d1008b;
 }
+
+.admin-edit{
+  cursor: pointer;
+  color: blue;
+}

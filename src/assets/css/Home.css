@@ -44,3 +44,8 @@
   font-weight: 500;
   color: rgb(53, 50, 50);
 }
+
+.home-edit{
+  cursor: pointer;
+  color: blue;
+}

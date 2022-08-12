@@ -33,6 +33,7 @@ export const addLead = (form) => {
       .catch(function (error) {
         console.log(error);
       });
+    console.log(res);
   };
 };
 
@@ -70,6 +71,7 @@ export const updateLeadClose = (form) => {
       .catch(function (error) {
         console.log(error);
       });
+    console.log(res);
   };
 };
 
@@ -131,6 +133,7 @@ export const updateAssignLead = (form) => {
       .catch(function (error) {
         console.log(error);
       });
+    console.log(res);
   };
 };
 

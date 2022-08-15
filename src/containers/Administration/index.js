@@ -64,7 +64,7 @@ export const Administration = (props) => {
 
   useEffect(() => {
     dispatch(getAllLeads());
-  }, [getAllLeads]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getLeadId = (item) => {
     const leadPair = {};
@@ -106,6 +106,10 @@ export const Administration = (props) => {
     dispatch(updateAssignLead(update));
   };
 
+  const reload = (e) => {
+    window.location.reload(false);
+  };
+
   const renderSalesPeople = (salesTeam) => {
     let salesPeople = [];
     for (let person of salesTeam) {
@@ -139,7 +143,7 @@ export const Administration = (props) => {
             <td>{lead.status}</td>
             <td>
               <p
-                className="admin-edit"
+                className="admin-edit mb-0"
                 onClick={(e) => {
                   e.preventDefault();
                   dispatch(getSingleLead(getLeadId(lead.leadId)));
@@ -397,9 +401,15 @@ export const Administration = (props) => {
                   <Button
                     className="btn-sm"
                     variant="success"
-                    type="button"
+                    type="submit"
                     style={{ width: "160px" }}
-                    onClick={updateLead}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      updateLead();
+                      setTimeout(() => {
+                        reload();
+                      }, 1500);
+                    }}
                   >
                     Submit
                   </Button>

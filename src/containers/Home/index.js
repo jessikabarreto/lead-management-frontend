@@ -24,7 +24,7 @@ export const Home = (props) => {
 
   useEffect(() => {
     dispatch(getAllLeads());
-  }, [getAllLeads]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderLeads = (leads) => {
     let leadItem = [];
@@ -137,12 +137,13 @@ export const Home = (props) => {
       leadId,
       notes,
     };
+
     dispatch(updateLeadClose(update));
   };
 
-  // const reload = (e) => {
-  //   window.location.reload(false);
-  // };
+  const reload = (e) => {
+    window.location.reload(false);
+  };
 
   return (
     <Layout>
@@ -363,6 +364,9 @@ export const Home = (props) => {
                     onClick={(e) => {
                       e.preventDefault();
                       updateLead();
+                      setTimeout(() => {
+                        reload();
+                      }, 1500);
                     }}
                   >
                     Close Lead

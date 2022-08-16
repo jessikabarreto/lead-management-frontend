@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { addLead } from "../../actions";
+import { AddLead } from "../../actions";
 import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,7 +27,7 @@ export const LeadCapture = (props) => {
   const [notes, setNotes] = useState("");
 
   const createLead = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const form = new FormData();
     form.append("_id", _id);
     form.append("business_name", business_name);
@@ -67,8 +67,9 @@ export const LeadCapture = (props) => {
       document.getElementById("msg").innerHTML = "Please fill all fields";
       document.getElementById("msg").classList.add("error");
     } else {
-      dispatch(addLead(lead));
-      document.getElementById("msg").innerHTML = "Lead successfully created";
+      dispatch(AddLead(lead));
+      document.getElementById("msg").innerHTML = "Lead successfully created.";
+
       document.getElementById("msg").classList.add("success");
       setBusinessName("");
       setIndustry("");
@@ -80,6 +81,14 @@ export const LeadCapture = (props) => {
       setRegion("");
       setNotes("");
     }
+  };
+
+  const updateLeadId = (e) => {
+    setTimeout(() => {
+      const post = JSON.parse(localStorage.getItem("postId"));
+      document.getElementById("createdLeadId").innerHTML =
+        "The Lead Id for the created lead is - " + post;
+    }, 1000);
   };
 
   return (
@@ -165,7 +174,11 @@ export const LeadCapture = (props) => {
                   variant="success"
                   type="submit"
                   style={{ width: "160px" }}
-                  onClick={createLead}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    createLead();
+                    updateLeadId();
+                  }}
                 >
                   Submit
                 </Button>
@@ -309,6 +322,11 @@ export const LeadCapture = (props) => {
             </Row>
           </Form>
           <p className="mt-3 text-center" id="msg"></p>
+          <p
+            className="mt-3 text-center text-info"
+            id="createdLeadId"
+            style={{ fontWeight: "bold" }}
+          ></p>
         </div>
       </div>
     </Layout>

@@ -5,6 +5,7 @@ import {
   leadUserReducer,
   productTotalsReducer,
   leadsSearchedReducer,
+  postLeadReducer,
 } from "./leads.reducer";
 import { combineReducers } from "redux";
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   leadUsers: leadUserReducer,
   productTotals: productTotalsReducer,
   leadsSearched: leadsSearchedReducer,
+  postLead: postLeadReducer,
 });
 
 export default rootReducer;

@@ -22,6 +22,10 @@ const searchState = {
   leadsSearched: [],
 };
 
+const postinitState = {
+  postLead: {},
+};
+
 export const leadsReducer = (state = initState, action) => {
   switch (action.type) {
     case leadConstants.GET_ALL_LEADS_SUCCESS:
@@ -80,6 +84,19 @@ export const leadsSearchedReducer = (state = searchState, action) => {
       state = {
         ...state,
         leadsSearched: action.payload.leadsSearched,
+      };
+      break;
+    default:
+  }
+  return state;
+};
+
+export const postLeadReducer = (state = postinitState, action) => {
+  switch (action.type) {
+    case leadConstants.GET_POST_LEAD_SUCCESS:
+      state = {
+        ...state,
+        postLead: action.payload.postLead,
       };
       break;
     default:

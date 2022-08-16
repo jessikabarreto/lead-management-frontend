@@ -23,17 +23,23 @@ export const getAllLeads = () => {
   };
 };
 
-export const addLead = (form) => {
+export const AddLead = (form) => {
   return async (dispatch) => {
+    dispatch({ type: leadConstants.GET_POST_LEAD_REQUEST });
     const res = await axios
       .post("/profile/create-lead", form)
       .then((response) => {
-        console.log(response);
+        const postLead = response.data.data;
+        dispatch({
+          type: leadConstants.GET_POST_LEAD_SUCCESS,
+          payload: { postLead },
+        });
+        return postLead.leadId;
       })
       .catch(function (error) {
         console.log(error);
       });
-    console.log(res);
+    localStorage.setItem("postId", JSON.stringify(res));
   };
 };
 

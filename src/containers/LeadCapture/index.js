@@ -89,6 +89,7 @@ export const LeadCapture = (props) => {
       document.getElementById("createdLeadId").innerHTML =
         "The Lead Id for the created lead is - " + post;
     }, 1000);
+    localStorage.removeItem("postId");
   };
 
   return (

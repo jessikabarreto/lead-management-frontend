@@ -65,7 +65,7 @@ export const Register = (props) => {
       document.getElementById("msg").classList.add("error");
     } else {
       dispatch(userRegister(update));
-      document.getElementById("msg").innerHTML = "Lead successfully created";
+      document.getElementById("msg").innerHTML = "User successfully created";
       document.getElementById("msg").classList.add("success");
       setFirstName("");
       setLastName("");

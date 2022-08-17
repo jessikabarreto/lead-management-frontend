@@ -436,3 +436,10 @@ export class ServiceSubChart extends Component {
     );
   }
 }
+
+//-------------------------------- set postId ----------------------------------
+
+export const PostIdData = () => {
+  localStorage.setItem("postId", JSON.stringify("LeadId"));
+  localStorage.getItem("postId");
+};

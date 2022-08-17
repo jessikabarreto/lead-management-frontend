@@ -8,6 +8,7 @@ import {
   GetRegionData,
   GetSsubData,
   GetStatusData,
+  PostIdData,
 } from "../Charts";
 
 /**
@@ -33,6 +34,7 @@ export const Layout = (props) => {
       <GetRegionData />
       <GetSsubData />
       <GetStatusData />
+      <PostIdData />
       {props.children}
       <Footer></Footer>
     </div>

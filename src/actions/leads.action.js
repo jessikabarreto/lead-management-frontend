@@ -69,7 +69,7 @@ export const getSingleLead = (idPair) => {
 
 export const updateLeadClose = (form) => {
   return async (dispatch) => {
-    const res = await axios
+    await axios
       .post("/profile/update-lead/close", form)
       .then((response) => {
         console.log(response);
@@ -77,7 +77,7 @@ export const updateLeadClose = (form) => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(res);
+    // console.log(res);
   };
 };
 

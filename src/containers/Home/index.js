@@ -26,6 +26,15 @@ export const Home = (props) => {
     dispatch(getAllLeads());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  function convertTZ(date, tzString) {
+    return new Date(
+      (typeof date === "string" ? new Date(date) : date).toLocaleString(
+        "en-US",
+        { timeZone: tzString }
+      )
+    );
+  }
+
   const renderLeads = (leads) => {
     let leadItem = [];
     for (let lead of leads) {
@@ -45,6 +54,11 @@ export const Home = (props) => {
               </p>
             </td>
             <td>{lead.createdAt.substring(0, 10)}</td>
+            <td>
+              {convertTZ(lead.createdAt, "Africa/Nairobi")
+                .toString()
+                .substring(25, 16)}
+            </td>
             <td>{lead.business_name}</td>
             <td>{lead.industry}</td>
             <td>{lead.contact_person}</td>
@@ -71,6 +85,11 @@ export const Home = (props) => {
           <tr key={lead._id}>
             <td>{lead.leadId}</td>
             <td>{lead.createdAt.substring(0, 10)}</td>
+            <td>
+              {convertTZ(lead.createdAt, "Africa/Nairobi")
+                .toString()
+                .substring(25, 16)}
+            </td>
             <td>{lead.business_name}</td>
             <td>{lead.industry}</td>
             <td>{lead.contact_person}</td>
@@ -122,7 +141,7 @@ export const Home = (props) => {
   const getLeadId = (item) => {
     const leadPair = {};
     leadPair.leadId = item;
-    console.log(leadPair);
+    // console.log(leadPair);
     return leadPair;
   };
 
@@ -160,6 +179,7 @@ export const Home = (props) => {
                   <tr>
                     <th>Lead ID</th>
                     <th>Date</th>
+                    <th>Time</th>
                     <th>Business</th>
                     <th>Industy</th>
                     <th>Contact</th>
@@ -364,9 +384,9 @@ export const Home = (props) => {
                     onClick={(e) => {
                       e.preventDefault();
                       updateLead();
-                      setTimeout(() => {
-                        reload();
-                      }, 1500);
+                      // setTimeout(() => {
+                      //   reload();
+                      // }, 2500);
                     }}
                   >
                     Close Lead
@@ -381,6 +401,7 @@ export const Home = (props) => {
                   <tr>
                     <th>Lead ID</th>
                     <th>Date</th>
+                    <th>Time</th>
                     <th>Business</th>
                     <th>Industy</th>
                     <th>Contact</th>

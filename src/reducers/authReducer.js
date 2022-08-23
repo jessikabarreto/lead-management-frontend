@@ -12,7 +12,7 @@ const initState = {
   authenticating: false,
   loading: false,
   error: null,
-  message: "",
+  message: null,
 };
 
 export const authReducer = (state = initState, action) => {
@@ -33,6 +33,18 @@ export const authReducer = (state = initState, action) => {
         token: action.payload.token,
         authenticate: true,
         authenticating: false,
+      };
+      break;
+    case authConstants.LOGIN_FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error,
+      };
+      break;
+    case authConstants.LOGIN_PASS_ERROR:
+      state = {
+        ...state,
+        message: action.payload.message,
       };
       break;
     case authConstants.LOGOUT_REQUEST:

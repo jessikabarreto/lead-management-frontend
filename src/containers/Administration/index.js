@@ -110,6 +110,15 @@ export const Administration = (props) => {
     window.location.reload(false);
   };
 
+  function convertTZ(date, tzString) {
+    return new Date(
+      (typeof date === "string" ? new Date(date) : date).toLocaleString(
+        "en-US",
+        { timeZone: tzString }
+      )
+    );
+  }
+
   const renderSalesPeople = (salesTeam) => {
     let salesPeople = [];
     for (let person of salesTeam) {
@@ -130,6 +139,11 @@ export const Administration = (props) => {
           <tr key={lead._id}>
             <td>{lead.leadId}</td>
             <td>{lead.createdAt.substring(0, 10)}</td>
+            <td>
+              {convertTZ(lead.createdAt, "Africa/Nairobi")
+                .toString()
+                .substring(25, 16)}
+            </td>
             <td>{lead.business_name}</td>
             <td>{lead.industry}</td>
             <td>{lead.contact_person}</td>
@@ -168,6 +182,11 @@ export const Administration = (props) => {
           <tr key={lead._id}>
             <td>{lead.leadId}</td>
             <td>{lead.createdAt.substring(0, 10)}</td>
+            <td>
+              {convertTZ(lead.createdAt, "Africa/Nairobi")
+                .toString()
+                .substring(25, 16)}
+            </td>
             <td>{lead.business_name}</td>
             <td>{lead.industry}</td>
             <td>{lead.contact_person}</td>
@@ -251,6 +270,7 @@ export const Administration = (props) => {
                 <tr>
                   <th className="th">Lead ID</th>
                   <th className="th">Date</th>
+                  <th className="th">Time</th>
                   <th className="th">Business</th>
                   <th className="th">Industy</th>
                   <th className="th">Contact</th>
@@ -424,6 +444,7 @@ export const Administration = (props) => {
                     <tr>
                       <th>Lead ID</th>
                       <th>Date</th>
+                      <th>Time</th>
                       <th>Business</th>
                       <th>Industy</th>
                       <th>Contact</th>

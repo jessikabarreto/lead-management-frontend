@@ -20,6 +20,15 @@ export const Search = (props) => {
   const [toDate, setAnotherDate] = useState("");
   const [created_by, setCreatedBy] = useState("");
 
+  function convertTZ(date, tzString) {
+    return new Date(
+      (typeof date === "string" ? new Date(date) : date).toLocaleString(
+        "en-US",
+        { timeZone: tzString }
+      )
+    );
+  }
+
   const searchLeads = (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -30,7 +39,7 @@ export const Search = (props) => {
     form.append("toDate", toDate);
     form.append("created_by", created_by);
 
-    console.log(form);
+    // console.log(form);
 
     const update = {
       region,
@@ -50,6 +59,11 @@ export const Search = (props) => {
         <tr key={lead._id}>
           <td>{lead.leadId}</td>
           <td>{lead.createdAt.substring(0, 10)}</td>
+          <td>
+            {convertTZ(lead.createdAt, "Africa/Nairobi")
+              .toString()
+              .substring(25, 16)}
+          </td>
           <td>{lead.business_name}</td>
           <td>{lead.industry}</td>
           <td>{lead.contact_person}</td>
@@ -169,6 +183,7 @@ export const Search = (props) => {
                 <tr>
                   <th className="th">Lead ID</th>
                   <th className="th">Date</th>
+                  <th className="th">Time</th>
                   <th className="th">Business</th>
                   <th className="th">Industy</th>
                   <th className="th">Contact</th>

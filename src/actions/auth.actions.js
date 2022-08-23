@@ -4,23 +4,25 @@ import { authConstants } from "./constants";
 export const login = (user) => {
   return async (dispatch) => {
     dispatch({ type: authConstants.LOGIN_REQUEST });
-    const res = await axios.post("/login", { ...user });
-    if (res.status === 200) {
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch({
-        type: authConstants.LOGIN_SUCCESS,
-        payload: { token, user },
-      });
-    } else {
-      if (res.status === 400) {
+    await axios
+      .post("/login", { ...user })
+      .then((response) => {
+        if (response.status === 200) {
+          const { token, user } = response.data;
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch({
+            type: authConstants.LOGIN_SUCCESS,
+            payload: { token, user },
+          });
+        }
+      })
+      .catch(function (error) {
         dispatch({
-          type: authConstants.LOGIN_FAILURE,
-          payload: { error: res.data.error },
+          type: authConstants.LOGIN_PASS_ERROR,
+          payload: { message: error.response.data.message },
         });
-      }
-    }
+      });
   };
 };
 

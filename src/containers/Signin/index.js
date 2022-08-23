@@ -16,7 +16,6 @@ import { Navigate } from "react-router-dom";
 export const Signin = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
@@ -94,6 +93,7 @@ export const Signin = (props) => {
             placeholder="Enter email"
             type="text"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
@@ -102,13 +102,14 @@ export const Signin = (props) => {
             placeholder="Password"
             type="password"
             value={password}
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="success" type="submit">
             Log In
           </Button>
         </Form>
-        <p value={error} onChange={(e) => setError(e.target.value)}></p>
+        <p className="text-danger mt-3">{auth.message}</p>
       </Col>
       <Col md={6} style={{ position: "fixed", zIndex: "1", right: "0px" }}>
         <img

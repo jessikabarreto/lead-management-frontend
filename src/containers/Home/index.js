@@ -384,9 +384,9 @@ export const Home = (props) => {
                     onClick={(e) => {
                       e.preventDefault();
                       updateLead();
-                      // setTimeout(() => {
-                      //   reload();
-                      // }, 2500);
+                      setTimeout(() => {
+                        reload();
+                      }, 1500);
                     }}
                   >
                     Close Lead

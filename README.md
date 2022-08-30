@@ -1,5 +1,5 @@
 # lead-management-frontend
-React frontend app. Latest Version dated 05-AUG-2022.
+React frontend app. Latest Version dated 30-AUG-2022.
 
 #### By GROUP FIVE
 * Kemuel Nalifuma - kemnygh@gmail.com
@@ -62,9 +62,7 @@ This app facilitates the activity of managing sales leads with the capability to
 
 ## Known Bugs
 * No delete user or lead feature available yet.
-* No export feature available once you search or for any of the tables
-* No notification for incorrect log ins.
-* Upon submitting lead no feedback yet with the lead ID for tracking purposes.
+* No export feature available once you search or for any of the tables.
 * Password change feature not built yet.
 * App does not render well on small screens.
 **Note: we expect to bring in these features with the iterative versions**

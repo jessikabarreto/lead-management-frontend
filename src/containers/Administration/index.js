@@ -205,6 +205,16 @@ export const Administration = (props) => {
     return leadItem;
   };
 
+  // const NotificationMessage = (e) => {
+  //   const message = JSON.parse(localStorage.getItem("assignMsg"));
+  //   document.getElementById("msg").innerHTML = message;
+  //   if (message === null) {
+  //     return <p className="text-danger mt-2"></p>;
+  //   } else {
+  //     return <p className="text-danger mt-2" id="msg"></p>;
+  //   }
+  // };
+
   return (
     <Layout>
       <div
@@ -433,6 +443,8 @@ export const Administration = (props) => {
                   >
                     Submit
                   </Button>
+                  {/* <p className="text-danger mt-2" id="msg"></p> */}
+                  {/* <NotificationMessage /> */}
                 </Form>
               </Row>
             </Col>

@@ -15,6 +15,32 @@ export const LeadTracker = (props) => {
   const [leadId, setLeadId] = useState("");
   const dispatch = useDispatch();
 
+  const CreateDate = (e) => {
+    function convertTZ(date, tzString) {
+      return new Date(
+        (typeof date === "string" ? new Date(date) : date).toLocaleString(
+          "en-US",
+          { timeZone: tzString }
+        )
+      );
+    }
+
+    if (searchedLead.createdAt === undefined) {
+      return (
+        <TrackerElement label="Create Date:" entry={searchedLead.createdAt} />
+      );
+    } else {
+      return (
+        <TrackerElement
+          label="Create Date:"
+          entry={convertTZ(searchedLead.createdAt, "Africa/Nairobi")
+            .toString()
+            .substring(0, 24)}
+        />
+      );
+    }
+  };
+
   const search = (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -190,6 +216,7 @@ export const LeadTracker = (props) => {
                 label="Created by:"
                 entry={searchedLead.created_by}
               />
+              <CreateDate />
               <TrackerElement
                 label="Creator Email:"
                 entry={searchedLead.creator_email}
@@ -203,7 +230,7 @@ export const LeadTracker = (props) => {
                 entry={searchedLead.status}
               />
               <TrackerElement
-                label="Qualified/Assigned by:"
+                label="Qualified by:"
                 entry={searchedLead.assigned_by}
               />
               <TrackerElement

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Layout } from "../../components/Layout";
-import { Row, Col, Button, Table, Form } from "react-bootstrap";
+import { Row, Col, Button, Table, Form, Alert } from "react-bootstrap";
 import { HomeInput } from "../../components/UI/Input";
 import { getSearchLeads } from "../../actions";
 
@@ -81,6 +81,21 @@ export const Search = (props) => {
     return leadItem;
   };
 
+  function SearchAlert() {
+    const [show, setShow] = useState(true);
+
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <p className="mb-0 me-0">
+            Date Selection is mandatory the rest of the fields are optional and
+            you can do partial word search.
+          </p>
+        </Alert>
+      );
+    }
+  }
+
   return (
     <Layout>
       <div className="" style={{ borderTop: "1px solid #efefef" }}>
@@ -159,11 +174,11 @@ export const Search = (props) => {
                       Search{" "}
                       <i className="bi bi-search text-white ms-2 me-0"></i>
                     </Button>
-                    <Row className=" me-0 mt-1" style={{ fontSize: "11px" }}>
-                      <span className="text-danger">
-                        *Date Selection is mandatory the rest of the fields are
-                        optional and you can do partial word search.
-                      </span>
+                    <Row
+                      className="ms-0 me-0 mt-1"
+                      style={{ fontSize: "11px" }}
+                    >
+                      <SearchAlert />
                     </Row>
                   </Col>
                 </Row>

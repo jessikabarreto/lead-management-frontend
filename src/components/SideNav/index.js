@@ -27,6 +27,10 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+            Search
+          </a>
           <a href="/">
             <i className="bi bi-house-fill"></i>
             Sales Workspace
@@ -49,6 +53,9 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+          </a>
           <a href="/">
             <i className="bi bi-house-fill"></i>
           </a>
@@ -72,6 +79,10 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+            Search
+          </a>
           <a href="/leadcapture">
             <i className="bi bi-menu-button-wide-fill"></i>
             Lead Capture
@@ -94,6 +105,9 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+          </a>
           <a href="/leadcapture">
             <i className="bi bi-menu-button-wide-fill"></i>
           </a>
@@ -117,6 +131,10 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+            Search
+          </a>
           <a href="/">
             <i className="bi bi-house-fill"></i>
             Sales Workspace
@@ -147,6 +165,9 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+          </a>
           <a href="/">
             <i className="bi bi-house-fill"></i>
           </a>
@@ -176,6 +197,10 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+            Search
+          </a>
           <a href="/">
             <i className="bi bi-menu-button-wide-fill"></i>
             Lead Capture
@@ -194,6 +219,9 @@ export const SideNav = (props) => {
             <i className="bi bi-x-square"></i>
           </a>
           <Rule color="gray" />
+          <a href="/search">
+            <i className="bi bi-search"></i>
+          </a>
           <a href="/">
             <i className="bi bi-menu-button-wide-fill"></i>
           </a>

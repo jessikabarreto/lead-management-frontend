@@ -6,6 +6,7 @@ import { Layout } from "../../components/Layout";
 import { Input, Select } from "../../components/UI/Input";
 import { useSelector, useDispatch } from "react-redux";
 import "../../assets/css/LeadCapture.css";
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
 
 /**
  * @author
@@ -83,12 +84,13 @@ export const LeadCapture = (props) => {
     }
   };
 
-  const updateLeadId = (e) => {
-    setTimeout(() => {
-      const post = JSON.parse(localStorage.getItem("postId"));
+  const updateLeadId = async (e) => {
+    let post;
+    try {
+      post = JSON.parse(await AsyncLocalStorage.getItem("postId"));
       document.getElementById("createdLeadId").innerHTML =
         "The Lead Id for the created lead is - " + post;
-    }, 1000);
+    } catch (e) {}
     localStorage.removeItem("postId");
   };
 
@@ -178,7 +180,9 @@ export const LeadCapture = (props) => {
                   onClick={(e) => {
                     e.preventDefault();
                     createLead();
-                    updateLeadId();
+                    setTimeout(() => {
+                      updateLeadId();
+                    }, 1000);
                   }}
                 >
                   Submit
@@ -236,7 +240,7 @@ export const LeadCapture = (props) => {
                     >
                       <option>Select Sub-Type</option>
                       <option value="Fixed - Fibre">Fixed - Fibre</option>
-                      <option value="Ficed - LTE">Ficed - LTE</option>
+                      <option value="Fixed - LTE">Fixed - LTE</option>
                       <option value="GSM - Mobile Data">
                         GSM - Mobile Data
                       </option>

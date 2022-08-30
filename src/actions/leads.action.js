@@ -1,4 +1,5 @@
 import axios from "../helpers/axios";
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
 import { leadConstants } from "./constants";
 
 export const getAllLeads = () => {
@@ -39,7 +40,7 @@ export const AddLead = (form) => {
       .catch(function (error) {
         console.log(error);
       });
-    localStorage.setItem("postId", JSON.stringify(res));
+    await AsyncLocalStorage.setItem("postId", JSON.stringify(res));
   };
 };
 
@@ -131,15 +132,25 @@ export const leadUserSales = (salesPair) => {
 
 export const updateAssignLead = (form) => {
   return async (dispatch) => {
-    const res = await axios
+    await axios
       .post("/profile/update-lead/assign", form)
       .then((response) => {
         console.log(response);
+        localStorage.setItem("assignMsg", "Lead assigned Successfully");
       })
       .catch(function (error) {
         console.log(error);
+        localStorage.setItem(
+          "assignMsg",
+          JSON.stringify(error.response.data.message)
+        );
+
+        // dispatch({
+        //   type: authConstants.LOGIN_PASS_ERROR,
+        //   payload: { message: error.response.data.message },
+        // });
       });
-    console.log(res);
+    // console.log(res);
   };
 };
 

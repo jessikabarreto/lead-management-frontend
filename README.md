@@ -2,7 +2,7 @@
 React frontend app. Latest Version dated 30-AUG-2022.
 
 ## Description
-This is a frontend application build from ground up using react and connection into a backend app that is deployed to Heroku through https://lead-mngt-bcknd.herokuapp.com link.
+This is a frontend application build from ground up using react and used in conjuction with the backend app lead-management-backend app
 This app facilitates the activity of managing sales leads with the capability to create, assign, update, search and display the leads. The app also has the capability of creating new users and login and logout through sessions.
 
 ## Setup/Installation Requirements

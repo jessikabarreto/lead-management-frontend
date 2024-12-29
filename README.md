@@ -1,12 +1,6 @@
 # lead-management-frontend
 React frontend app. Latest Version dated 30-AUG-2022.
 
-#### By GROUP FIVE
-* Kemuel Nalifuma - kemnygh@gmail.com
-* Sharon Apot - sharonapot@gmail.com
-* Kelly Kinyua - kinyuakelly8@gmail.com
-* Bernard Juma - bernard.juma@student.moringaschool.com
-
 ## Description
 This is a frontend application build from ground up using react and connection into a backend app that is deployed to Heroku through https://lead-mngt-bcknd.herokuapp.com link.
 This app facilitates the activity of managing sales leads with the capability to create, assign, update, search and display the leads. The app also has the capability of creating new users and login and logout through sessions.
@@ -74,13 +68,6 @@ This app facilitates the activity of managing sales leads with the capability to
 * Javascript
 * fusionCharts
 * Nodejs
-
-## Users for Login:
-* Some users have already been created to facilitate testing of the app here are examples touching on the 4 different access levels. Please not these are fictious characters & address that do not coincide with any real person.
-* Super user - email: sysadmin@safari.co.ke, password: admini, access: superuser – has access to everything.
-* Normal user email: bojuma@safari.co.ke, password: admin, access: user – has access to lead create, lead tracker, search and dashboard.
-* Admin user – email: mbobea@safari.co.ke, password: admini, access: admin – has access to administration page, lead capture, lead tracker, search and dashboard.
-* Sales user – email: sapot@safari.co.ke, password: admin, access: sales – has access to sales workplace, lead capture, lead tracker, search and dashboard.
 
 
 ## Support and contact details

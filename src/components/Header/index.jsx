@@ -21,10 +21,10 @@ export const Header = (props) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Navbar className="navbar fixed-top">
         <Navbar.Brand href="/" className="brand">
-          <img src={logo} className="nav-logo" alt="" />
+          <img src={logo} className="nav-logo" alt="Logo" />
           Enterprise Leads Management Tool
         </Navbar.Brand>
         <Navbar.Toggle>test</Navbar.Toggle>
@@ -33,10 +33,18 @@ export const Header = (props) => {
             Welcome: {userName} {lastName}
           </Navbar.Text>
           <Navbar.Text>
-            <i className="bi bi-box-arrow-right" onClick={signout}></i>
+            <button
+              type="button"
+              className="btn btn-link p-0 border-0 bg-transparent"
+              onClick={signout}
+              aria-label="Logout"
+              style={{ color: 'inherit', textDecoration: 'none' }}
+            >
+              <i className="bi bi-box-arrow-right"></i>
+            </button>
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
-    </>
+    </React.Fragment>
   );
 };

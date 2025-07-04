@@ -33,7 +33,17 @@ export const Header = (props) => {
             Welcome: {userName} {lastName}
           </Navbar.Text>
           <Navbar.Text>
-            <i className="bi bi-box-arrow-right" onClick={signout}></i>
+                      <i 
+            className="bi bi-box-arrow-right" 
+            onClick={signout}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                signout();
+              }
+            }}
+          ></i>
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
-import { SideNav } from "../../components/SideNav";
+import { SideNav } from "../SideNav/index.jsx";
 import {
   GetData,
   GetDateData,
